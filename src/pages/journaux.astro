@@ -2,32 +2,24 @@
 import PageLayout from "../layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
 
-const activites = (await getCollection("activites")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const activites = (await getCollection("activites")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <PageLayout
-  title="Journaux d'activités"
-  eyebrow="04 — Activités"
-  description="Journal des missions, formations et événements."
+  title="Missions & événements"
+  rubrique="Rubrique V — Journal d'activités"
+  description="Journal des missions, formations et événements professionnels."
 >
-  <ol class="space-y-10 border-l border-[color:var(--color-line)] pl-8">
+  <div class="card-grid">
     {activites.map((act) => (
-      <li class="reveal relative">
-        <span class="absolute -left-[35px] top-1.5 h-2.5 w-2.5 rounded-full bg-[color:var(--color-gold)]"></span>
-        <time class="font-mono text-xs text-[color:var(--color-text-dim)]">
-          {act.data.date.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
-          {act.data.lieu ? ` · ${act.data.lieu}` : ""}
-        </time>
-        <h2 class="font-display mt-1 text-2xl text-[color:var(--color-text)]">{act.data.titre}</h2>
-        <p class="mt-2 max-w-2xl text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
-          {act.data.description}
-        </p>
-      </li>
+      <div class="pub-card">
+        <div class="pub-meta">
+          {act.data.date.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}{act.data.lieu ? ` · ${act.data.lieu}` : ""}
+        </div>
+        <h3>{act.data.titre}</h3>
+        <p>{act.data.description}</p>
+        <span class="pub-link">Lire l'entrée →</span>
+      </div>
     ))}
-  </ol>
-
-  {activites.length === 0 && (
-    <p class="text-[color:var(--color-text-dim)]">Aucune activité enregistrée pour le moment.</p>
-  )}
+  </div>
+  {activites.length === 0 && <p style="color:var(--text-soft);">Aucune activité enregistrée pour le moment.</p>}
 </PageLayout>

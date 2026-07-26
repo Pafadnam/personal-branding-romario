@@ -1,4 +1,5 @@
 ---
 type: "certification"
-titre: "Emplacement réservé — À compléter"
+titre: "Emplacement réservé"
 ---
+À compléter

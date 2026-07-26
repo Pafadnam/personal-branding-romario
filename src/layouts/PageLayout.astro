@@ -1,38 +1,30 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
-import ScrollReveal from "../components/ScrollReveal.astro";
 import profile from "../data/profile.json";
 
 interface Props {
   title: string;
-  eyebrow: string;
+  rubrique: string;
   description?: string;
 }
 
-const { title, eyebrow, description } = Astro.props;
+const { title, rubrique, description } = Astro.props;
 ---
 <BaseLayout title={`${title} — ${profile.nom}`} description={description}>
   <Navigation />
 
-  <header class="reveal border-b border-[color:var(--color-line)] px-6 pb-16 pt-20 md:pt-24">
-    <div class="mx-auto max-w-6xl">
-      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">{eyebrow}</p>
-      <h1 class="font-display mt-4 text-5xl leading-[0.95] text-[color:var(--color-text)] md:text-6xl">
-        {title}
-      </h1>
-    </div>
-  </header>
-
-  <main class="px-6 py-16">
-    <div class="mx-auto max-w-6xl">
-      <slot />
-    </div>
+  <main class="panels">
+    <section class="panel">
+      <div class="panel-inner">
+        <p class="rubrique">{rubrique}</p>
+        <h2 class="panel-title">{title}</h2>
+        <slot />
+      </div>
+    </section>
   </main>
 
-  <footer class="border-t border-[color:var(--color-line)] px-6 py-10 text-center text-xs text-[color:var(--color-text-dim)]">
-    © {new Date().getFullYear()} {profile.nom} · Site construit avec Astro — Phase 2/9
+  <footer class="site-footer">
+    © {new Date().getFullYear()} {profile.nom} · <a href="/documents">Documents</a>
   </footer>
-
-  <ScrollReveal />
 </BaseLayout>

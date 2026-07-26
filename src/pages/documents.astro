@@ -3,44 +3,26 @@ import PageLayout from "../layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
 
 const docs = await getCollection("documents");
-
-const typeIcon: Record<string, string> = {
-  pdf: "PDF",
-  word: "DOC",
-  excel: "XLS",
-  zip: "ZIP",
-};
+const typeIcon: Record<string, string> = { pdf: "PDF", word: "DOC", excel: "XLS", zip: "ZIP" };
 ---
 <PageLayout
-  title="Documents"
-  eyebrow="06 — Documents"
-  description="Bibliothèque de documents téléchargeables."
+  title="Bibliothèque de documents"
+  rubrique="Documents"
+  description="Documents téléchargeables."
 >
-  <ul class="divide-y divide-[color:var(--color-line)]">
+  <ul class="doc-list">
     {docs.map((doc) => (
-      <li class="reveal flex items-center justify-between gap-6 py-5">
-        <div class="flex items-center gap-4">
-          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-[color:var(--color-gold-dim)] font-mono text-[10px] text-[color:var(--color-gold)]">
-            {typeIcon[doc.data.type]}
-          </span>
+      <li>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="doc-icon">{typeIcon[doc.data.type]}</span>
           <div>
-            <p class="text-[15px] text-[color:var(--color-text)]">{doc.data.titre}</p>
-            {doc.data.categorie && (
-              <p class="text-[12px] text-[color:var(--color-text-dim)]">{doc.data.categorie}</p>
-            )}
+            <p class="doc-title">{doc.data.titre}</p>
+            {doc.data.categorie && <p class="doc-cat">{doc.data.categorie}</p>}
           </div>
         </div>
-        <a
-          href={doc.data.fichier}
-          class="shrink-0 text-[13px] text-[color:var(--color-gold)] underline underline-offset-4 hover:text-[color:var(--color-gold-dim)]"
-        >
-          Télécharger
-        </a>
+        <a href={doc.data.fichier} class="doc-dl">Télécharger →</a>
       </li>
     ))}
   </ul>
-
-  {docs.length === 0 && (
-    <p class="text-[color:var(--color-text-dim)]">Aucun document pour le moment.</p>
-  )}
+  {docs.length === 0 && <p style="color:var(--text-soft);">Aucun document pour le moment.</p>}
 </PageLayout>

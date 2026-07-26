@@ -1,4 +1,5 @@
 ---
 type: "formation"
-titre: "Emplacement réservé — À compléter"
+titre: "Emplacement réservé"
 ---
+À compléter

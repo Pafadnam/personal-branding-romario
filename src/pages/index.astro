@@ -2,213 +2,107 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import CarteIdentite from "../components/CarteIdentite.astro";
-import ScrollReveal from "../components/ScrollReveal.astro";
 import profile from "../data/profile.json";
 ---
 <BaseLayout>
   <Navigation />
 
-  <!-- HERO -->
-  <section class="relative overflow-hidden px-6 pb-28 pt-20 md:pt-28">
-    <div class="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-[1.1fr_0.9fr]">
-      <div>
-        <p class="text-[13px] uppercase tracking-[0.3em] text-[color:var(--color-gold)]">
-          Dossier professionnel — Ouagadougou
-        </p>
-        <h1 class="font-display mt-6 text-[15vw] leading-[0.95] text-[color:var(--color-text)] sm:text-6xl md:text-7xl">
-          {profile.nom.split(" ").slice(-2).join(" ")}
-        </h1>
-        <p class="mt-2 font-display text-2xl italic text-[color:var(--color-text-dim)] md:text-3xl">
-          {profile.profession}, {profile.sousTitre}
-        </p>
-        <p class="mt-6 max-w-md text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
-          Une identité numérique unique, centralisant parcours, publications
-          et documents officiels — {profile.slogan.toLowerCase()}.
-        </p>
-
-        <div class="mt-10 flex flex-wrap items-center gap-6">
-          <a
-            href="/cv.pdf"
-            class="group inline-flex items-center gap-2 rounded-full bg-[color:var(--color-gold)] px-6 py-3 text-[13px] font-medium text-[color:var(--color-ink)] transition-transform hover:-translate-y-0.5"
-          >
-            Télécharger le CV
-            <span class="transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
-          <a
-            href="#contact"
-            class="text-[13px] text-[color:var(--color-text-dim)] underline decoration-[color:var(--color-line)] underline-offset-4 transition-colors hover:text-[color:var(--color-gold)]"
-          >
-            Prendre contact
-          </a>
-        </div>
+  <header class="hero">
+    <div class="hero-content">
+      <div class="portrait-crossfade" role="img" aria-label={`Photo de ${profile.nom}, ${profile.profession}`}>
+        FR
       </div>
-
-      <CarteIdentite />
-    </div>
-  </section>
-
-  <!-- PROFIL -->
-  <section id="profil" class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
-    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.3fr_0.7fr]">
-      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">01 — Profil</p>
-      <div>
-        <h2 class="font-display max-w-2xl text-3xl leading-snug text-[color:var(--color-text)] md:text-4xl">
-          Un service public exercé avec rigueur.
-        </h2>
-        <p class="mt-6 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
-          Inspecteur des Douanes au sein de la Direction Générale des Douanes du
-          Burkina Faso, Franck Romario Tiendrebeogo conjugue expertise juridique
-          et exigence de terrain au service de la souveraineté économique
-          nationale.
-        </p>
-        <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
-          Conseiller juridique de formation, il apporte à la fonction douanière
-          une lecture rigoureuse des textes et une attention constante à
-          l'application équitable de la règle de droit — dans le respect des
-          personnes, des échanges et de l'État.
-        </p>
-        <div class="mt-6 flex flex-wrap gap-2">
-          {profile.expertises.map((exp) => (
-            <span class="rounded-full border border-[color:var(--color-line)] px-3 py-1 text-[12px] text-[color:var(--color-text-dim)]">
-              {exp}
-            </span>
-          ))}
-        </div>
+      <h1 class="title">{profile.sousTitre.split(" ")[0]} Romario <em>Tiendrebeogo</em></h1>
+      <p class="role-line">
+        {profile.profession} — Direction Générale des Douanes du Burkina Faso.
+        Conseiller juridique et fonctionnaire de douane au service de l'État.
+      </p>
+      <p class="slogan">« {profile.slogan} »</p>
+      <div class="hero-cta">
+        <a href="/#contact" class="btn btn-primary">Prendre contact</a>
+        <a href="/cv" class="btn btn-ghost">Voir le CV</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- APERÇU DES AUTRES SECTIONS -->
-  <section class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
-    <div class="mx-auto max-w-6xl">
-      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">Le dossier</p>
-      <div class="mt-8 grid gap-px overflow-hidden rounded-xl bg-[color:var(--color-line)] sm:grid-cols-2 lg:grid-cols-3">
-        {profile.sections.slice(1, -1).map((s) => (
-          <a
-            href={s.href}
-            class="group flex flex-col justify-between gap-8 bg-[color:var(--color-ink)] p-8 transition-colors hover:bg-[color:var(--color-ink-raised)]"
-          >
-            <span class="font-mono text-xs text-[color:var(--color-text-dim)]">{s.num}</span>
-            <div class="flex items-end justify-between">
-              <h3 class="font-display text-2xl text-[color:var(--color-text)]">{s.label}</h3>
-              <span class="text-[color:var(--color-gold)] opacity-0 transition-opacity group-hover:opacity-100">→</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
-    <div class="mx-auto max-w-6xl">
-      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">07 — Contact</p>
-      <h2 class="font-display mt-6 max-w-xl text-3xl leading-snug md:text-4xl">
-        Restons en contact.
-      </h2>
-
-      <div class="mt-12 grid gap-16 lg:grid-cols-2">
-        <div>
-          <div class="grid gap-8 text-sm text-[color:var(--color-text-dim)] sm:grid-cols-2">
-            <div>
-              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Email</p>
-              <a href={`mailto:${profile.email}`} class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
-                {profile.email}
-              </a>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">LinkedIn</p>
-              <a href={profile.linkedin} target="_blank" rel="noopener" class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
-                {profile.linkedin.replace("https://", "")}
-              </a>
-            </div>
-            <div class="sm:col-span-2">
-              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Téléphones</p>
-              <p class="mt-1 text-[color:var(--color-text)]">{profile.telephones.join(" · ")}</p>
-            </div>
-            <div class="sm:col-span-2">
-              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse</p>
-              <p class="mt-1 text-[color:var(--color-text)]">{profile.adresse}</p>
-            </div>
-          </div>
-
-          <!-- FAQ -->
-          <div class="mt-14 space-y-6">
-            <details class="group border-t border-[color:var(--color-line)] pt-4">
-              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
-                Comment puis-je vous contacter pour une demande officielle ?
-              </summary>
-              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
-                Utilisez le formulaire ci-contre, ou l'un des numéros et l'adresse e-mail indiqués.
-              </p>
-            </details>
-            <details class="group border-t border-[color:var(--color-line)] pt-4">
-              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
-                Le CV est-il téléchargeable ?
-              </summary>
-              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
-                Oui, une version PDF complète est disponible dans la rubrique Parcours, mise à jour à chaque modification.
-              </p>
-            </details>
-            <details class="group border-t border-[color:var(--color-line)] pt-4">
-              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
-                Les publications sont-elles mises à jour régulièrement ?
-              </summary>
-              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
-                Les articles, communiqués et rapports sont ajoutés dès leur disponibilité.
-              </p>
-            </details>
-          </div>
-        </div>
-
-        <!-- Formulaire (Netlify Forms) -->
-        <form
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-          class="space-y-5"
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <p class="hidden">
-            <label>Ne pas remplir : <input name="bot-field" /></label>
+  <main class="panels">
+    <section class="panel" id="profil">
+      <div class="panel-inner profil-grid">
+        <CarteIdentite />
+        <div class="bio">
+          <p class="rubrique">Rubrique I — Profil</p>
+          <h2 class="panel-title">Un service public exercé avec rigueur</h2>
+          <p>
+            Inspecteur des Douanes au sein de la Direction Générale des Douanes
+            du Burkina Faso, Franck Romario Tiendrebeogo conjugue expertise
+            juridique et exigence de terrain au service de la souveraineté
+            économique nationale.
           </p>
-
-          <div>
-            <label for="name" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Nom complet</label>
-            <input
-              id="name" name="name" type="text" required
-              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
-            />
+          <p>
+            Conseiller juridique de formation, il apporte à la fonction
+            douanière une lecture rigoureuse des textes et une attention
+            constante à l'application équitable de la règle de droit — dans le
+            respect des personnes, des échanges et de l'État.
+          </p>
+          <div class="tag-row">
+            {profile.expertises.map((exp) => <span class="tag">{exp}</span>)}
           </div>
-          <div>
-            <label for="email" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse e-mail</label>
-            <input
-              id="email" name="email" type="email" required
-              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
-            />
-          </div>
-          <div>
-            <label for="message" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Message</label>
-            <textarea
-              id="message" name="message" rows="5" required
-              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            class="rounded-full bg-[color:var(--color-gold)] px-6 py-3 text-[13px] font-medium text-[color:var(--color-ink)] transition-transform hover:-translate-y-0.5"
-          >
-            Envoyer le message
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="border-t border-[color:var(--color-line)] px-6 py-10 text-center text-xs text-[color:var(--color-text-dim)]">
-    © {new Date().getFullYear()} {profile.nom} · Site construit avec Astro — Phase 1/9
+    <section class="panel" id="contact" style="padding-top:0;">
+      <div class="panel-inner">
+        <p class="rubrique">Rubrique VII — Contact</p>
+        <h2 class="panel-title">Échanger avec Franck Romario</h2>
+        <div class="contact-grid">
+          <div>
+            <ul class="contact-list">
+              <li><span>EMAIL</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+              <li><span>LINKEDIN</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
+              {profile.telephones.map((tel, i) => (
+                <li><span>TÉLÉPHONE {i + 1}</span><a href={`tel:+226${tel.replace(/\s/g, "")}`}>{tel}</a></li>
+              ))}
+              <li><span>ADRESSE</span><span>{profile.adresse}</span></li>
+            </ul>
+          </div>
+          <form class="form-box" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact" />
+            <p style="position:absolute;left:-9999px;">
+              <label>Ne pas remplir : <input name="bot-field" /></label>
+            </p>
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="name" placeholder="Votre nom" required />
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" name="email" placeholder="vous@exemple.com" required />
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+              Envoyer le message
+            </button>
+          </form>
+        </div>
+
+        <div class="faq-list">
+          <p class="subhead">Questions fréquentes</p>
+          <details class="faq-item">
+            <summary>Comment puis-je vous contacter pour une demande officielle ?</summary>
+            <p>Utilisez le formulaire ci-dessus, ou l'un des numéros et l'adresse e-mail indiqués.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Le CV est-il téléchargeable ?</summary>
+            <p>Oui, une version PDF complète est disponible dans la rubrique Parcours, mise à jour à chaque modification.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Les publications sont-elles mises à jour régulièrement ?</summary>
+            <p>Les articles, communiqués et rapports sont ajoutés dès leur disponibilité.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    © {new Date().getFullYear()} {profile.nom} · Site professionnel
   </footer>
-
-  <ScrollReveal />
 </BaseLayout>
