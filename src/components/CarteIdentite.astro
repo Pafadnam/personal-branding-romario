@@ -41,16 +41,35 @@ import profile from "../data/profile.json";
         « {profile.slogan} »
       </p>
 
+      <!-- Détails administratifs -->
+      <div class="mt-5 grid grid-cols-3 gap-3 border-t border-black/10 pt-4">
+        <div>
+          <p class="text-[9px] uppercase tracking-wide text-black/40">Nationalité</p>
+          <p class="mt-0.5 text-[12px] text-black/70">{profile.nationalite}</p>
+        </div>
+        <div>
+          <p class="text-[9px] uppercase tracking-wide text-black/40">Résidence</p>
+          <p class="mt-0.5 text-[12px] text-black/70">{profile.residence}</p>
+        </div>
+        <div>
+          <p class="text-[9px] uppercase tracking-wide text-black/40">Statut</p>
+          <p class="mt-0.5 text-[12px] text-black/70">{profile.statut}</p>
+        </div>
+      </div>
+
       <!-- Pied -->
-      <div class="mt-6 flex items-end justify-between border-t border-black/10 pt-4">
+      <div class="mt-5 flex items-end justify-between border-t border-black/10 pt-4">
         <div class="font-mono text-[10px] leading-relaxed text-black/40">
           <p>{profile.email}</p>
           <p>{profile.adresse}</p>
         </div>
-        <div class="grid h-10 w-10 shrink-0 grid-cols-3 gap-px rounded-sm bg-black/70 p-1">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span class:list={["h-full w-full", (i + Math.floor(i / 3)) % 2 === 0 ? "bg-white" : "bg-black/70"]}></span>
-          ))}
+        <div class="text-right">
+          <div class="ml-auto grid h-10 w-10 shrink-0 grid-cols-3 gap-px rounded-sm bg-black/70 p-1">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <span class:list={["h-full w-full", (i + Math.floor(i / 3)) % 2 === 0 ? "bg-white" : "bg-black/70"]}></span>
+            ))}
+          </div>
+          <p class="mt-1 text-[7px] uppercase tracking-wide text-black/40">Scanner pour la carte numérique</p>
         </div>
       </div>
     </div>

@@ -68,6 +68,14 @@ const documents = defineCollection({
   }),
 });
 
+const distinctions = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/distinctions" }),
+  schema: z.object({
+    type: z.enum(["certification", "distinction", "formation"]),
+    titre: z.string(),
+  }),
+});
+
 const temoignages = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/temoignages" }),
   schema: z.object({
@@ -84,5 +92,6 @@ export const collections = {
   activites,
   galerie,
   documents,
+  distinctions,
   temoignages,
 };

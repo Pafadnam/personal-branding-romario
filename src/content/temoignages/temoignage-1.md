@@ -1,5 +1,5 @@
 ---
-auteur: "[EXEMPLE — Nom à remplacer]"
-fonction: "Collègue / Supérieur hiérarchique"
-citation: "[EXEMPLE — à remplacer] Un témoignage professionnel sur la rigueur et l'intégrité au travail."
+auteur: "Nom à compléter"
+fonction: "Fonction et institution"
+citation: "Emplacement réservé pour un témoignage professionnel, à ajouter via l'administration."
 ---

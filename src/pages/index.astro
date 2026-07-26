@@ -53,14 +53,27 @@ import profile from "../data/profile.json";
       <p class="font-mono text-[13px] text-[color:var(--color-gold)]">01 — Profil</p>
       <div>
         <h2 class="font-display max-w-2xl text-3xl leading-snug text-[color:var(--color-text)] md:text-4xl">
-          Une carrière fondée sur l'intégrité, la rigueur juridique et le
-          service public.
+          Un service public exercé avec rigueur.
         </h2>
         <p class="mt-6 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
-          Cette section accueillera la biographie complète, les compétences
-          et les valeurs professionnelles — alimentée directement par le
-          client via l'interface d'administration (Phase 3).
+          Inspecteur des Douanes au sein de la Direction Générale des Douanes du
+          Burkina Faso, Franck Romario Tiendrebeogo conjugue expertise juridique
+          et exigence de terrain au service de la souveraineté économique
+          nationale.
         </p>
+        <p class="mt-4 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
+          Conseiller juridique de formation, il apporte à la fonction douanière
+          une lecture rigoureuse des textes et une attention constante à
+          l'application équitable de la règle de droit — dans le respect des
+          personnes, des échanges et de l'État.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {profile.expertises.map((exp) => (
+            <span class="rounded-full border border-[color:var(--color-line)] px-3 py-1 text-[12px] text-[color:var(--color-text-dim)]">
+              {exp}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -93,21 +106,102 @@ import profile from "../data/profile.json";
       <h2 class="font-display mt-6 max-w-xl text-3xl leading-snug md:text-4xl">
         Restons en contact.
       </h2>
-      <div class="mt-10 grid gap-8 text-[15px] text-[color:var(--color-text-dim)] sm:grid-cols-3">
+
+      <div class="mt-12 grid gap-16 lg:grid-cols-2">
         <div>
-          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Email</p>
-          <a href={`mailto:${profile.email}`} class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
-            {profile.email}
-          </a>
+          <div class="grid gap-8 text-sm text-[color:var(--color-text-dim)] sm:grid-cols-2">
+            <div>
+              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Email</p>
+              <a href={`mailto:${profile.email}`} class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
+                {profile.email}
+              </a>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">LinkedIn</p>
+              <a href={profile.linkedin} target="_blank" rel="noopener" class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
+                {profile.linkedin.replace("https://", "")}
+              </a>
+            </div>
+            <div class="sm:col-span-2">
+              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Téléphones</p>
+              <p class="mt-1 text-[color:var(--color-text)]">{profile.telephones.join(" · ")}</p>
+            </div>
+            <div class="sm:col-span-2">
+              <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse</p>
+              <p class="mt-1 text-[color:var(--color-text)]">{profile.adresse}</p>
+            </div>
+          </div>
+
+          <!-- FAQ -->
+          <div class="mt-14 space-y-6">
+            <details class="group border-t border-[color:var(--color-line)] pt-4">
+              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
+                Comment puis-je vous contacter pour une demande officielle ?
+              </summary>
+              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+                Utilisez le formulaire ci-contre, ou l'un des numéros et l'adresse e-mail indiqués.
+              </p>
+            </details>
+            <details class="group border-t border-[color:var(--color-line)] pt-4">
+              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
+                Le CV est-il téléchargeable ?
+              </summary>
+              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+                Oui, une version PDF complète est disponible dans la rubrique Parcours, mise à jour à chaque modification.
+              </p>
+            </details>
+            <details class="group border-t border-[color:var(--color-line)] pt-4">
+              <summary class="cursor-pointer text-[15px] font-medium text-[color:var(--color-text)] marker:content-none">
+                Les publications sont-elles mises à jour régulièrement ?
+              </summary>
+              <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+                Les articles, communiqués et rapports sont ajoutés dès leur disponibilité.
+              </p>
+            </details>
+          </div>
         </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse</p>
-          <p class="mt-1 text-[color:var(--color-text)]">{profile.adresse}</p>
-        </div>
-        <div>
-          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Téléphones</p>
-          <p class="mt-1 text-[color:var(--color-text)]">{profile.telephones.join(" · ")}</p>
-        </div>
+
+        <!-- Formulaire (Netlify Forms) -->
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="space-y-5"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden">
+            <label>Ne pas remplir : <input name="bot-field" /></label>
+          </p>
+
+          <div>
+            <label for="name" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Nom complet</label>
+            <input
+              id="name" name="name" type="text" required
+              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
+            />
+          </div>
+          <div>
+            <label for="email" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse e-mail</label>
+            <input
+              id="email" name="email" type="email" required
+              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
+            />
+          </div>
+          <div>
+            <label for="message" class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Message</label>
+            <textarea
+              id="message" name="message" rows="5" required
+              class="mt-2 w-full rounded-md border border-[color:var(--color-line)] bg-[color:var(--color-ink-raised)] px-4 py-3 text-[14px] text-[color:var(--color-text)] outline-none focus:border-[color:var(--color-gold)]"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="rounded-full bg-[color:var(--color-gold)] px-6 py-3 text-[13px] font-medium text-[color:var(--color-ink)] transition-transform hover:-translate-y-0.5"
+          >
+            Envoyer le message
+          </button>
+        </form>
       </div>
     </div>
   </section>

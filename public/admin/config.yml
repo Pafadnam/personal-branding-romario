@@ -26,6 +26,8 @@ collections:
           - { label: "Sous-titre", name: "sousTitre", widget: "string" }
           - { label: "Slogan", name: "slogan", widget: "string" }
           - { label: "Nationalité", name: "nationalite", widget: "string" }
+          - { label: "Résidence", name: "residence", widget: "string" }
+          - { label: "Statut", name: "statut", widget: "string" }
           - { label: "Adresse", name: "adresse", widget: "string" }
           - { label: "Matricule", name: "matricule", widget: "string" }
           - label: "Téléphones"
@@ -34,6 +36,10 @@ collections:
             field: { label: "Numéro", name: "numero", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
           - { label: "LinkedIn", name: "linkedin", widget: "string" }
+          - label: "Domaines d'expertise"
+            name: "expertises"
+            widget: "list"
+            field: { label: "Domaine", name: "domaine", widget: "string" }
           - label: "Sections de navigation"
             name: "sections"
             widget: "list"
@@ -138,6 +144,20 @@ collections:
       - { label: "Fichier", name: "fichier", widget: "file", media_folder: "/public/documents", public_folder: "/documents" }
       - { label: "Catégorie", name: "categorie", widget: "string", required: false }
       - { label: "Date", name: "date", widget: "datetime", required: false }
+
+  # --- Distinctions & certifications ---
+  - name: "distinctions"
+    label: "Distinctions & certifications"
+    folder: "src/content/distinctions"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["certification", "distinction", "formation"]
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Détail", name: "body", widget: "markdown", required: false }
 
   # --- Témoignages ---
   - name: "temoignages"
