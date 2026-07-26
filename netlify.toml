@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
 
 # Redirection propre vers l'admin (évite les 404 sur /admin sans slash)
 [[redirects]]
