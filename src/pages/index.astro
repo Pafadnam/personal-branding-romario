@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import CarteIdentite from "../components/CarteIdentite.astro";
+import ScrollReveal from "../components/ScrollReveal.astro";
+import profile from "../data/profile.json";
+---
+<BaseLayout>
+  <Navigation />
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden px-6 pb-28 pt-20 md:pt-28">
+    <div class="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-[1.1fr_0.9fr]">
+      <div>
+        <p class="text-[13px] uppercase tracking-[0.3em] text-[color:var(--color-gold)]">
+          Dossier professionnel — Ouagadougou
+        </p>
+        <h1 class="font-display mt-6 text-[15vw] leading-[0.95] text-[color:var(--color-text)] sm:text-6xl md:text-7xl">
+          {profile.nom.split(" ").slice(-2).join(" ")}
+        </h1>
+        <p class="mt-2 font-display text-2xl italic text-[color:var(--color-text-dim)] md:text-3xl">
+          {profile.profession}, {profile.sousTitre}
+        </p>
+        <p class="mt-6 max-w-md text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
+          Une identité numérique unique, centralisant parcours, publications
+          et documents officiels — {profile.slogan.toLowerCase()}.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-6">
+          <a
+            href="/cv.pdf"
+            class="group inline-flex items-center gap-2 rounded-full bg-[color:var(--color-gold)] px-6 py-3 text-[13px] font-medium text-[color:var(--color-ink)] transition-transform hover:-translate-y-0.5"
+          >
+            Télécharger le CV
+            <span class="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+          <a
+            href="#contact"
+            class="text-[13px] text-[color:var(--color-text-dim)] underline decoration-[color:var(--color-line)] underline-offset-4 transition-colors hover:text-[color:var(--color-gold)]"
+          >
+            Prendre contact
+          </a>
+        </div>
+      </div>
+
+      <CarteIdentite />
+    </div>
+  </section>
+
+  <!-- PROFIL -->
+  <section id="profil" class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.3fr_0.7fr]">
+      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">01 — Profil</p>
+      <div>
+        <h2 class="font-display max-w-2xl text-3xl leading-snug text-[color:var(--color-text)] md:text-4xl">
+          Une carrière fondée sur l'intégrité, la rigueur juridique et le
+          service public.
+        </h2>
+        <p class="mt-6 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-text-dim)]">
+          Cette section accueillera la biographie complète, les compétences
+          et les valeurs professionnelles — alimentée directement par le
+          client via l'interface d'administration (Phase 3).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APERÇU DES AUTRES SECTIONS -->
+  <section class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">Le dossier</p>
+      <div class="mt-8 grid gap-px overflow-hidden rounded-xl bg-[color:var(--color-line)] sm:grid-cols-2 lg:grid-cols-3">
+        {profile.sections.slice(1, -1).map((s) => (
+          <a
+            href={s.href}
+            class="group flex flex-col justify-between gap-8 bg-[color:var(--color-ink)] p-8 transition-colors hover:bg-[color:var(--color-ink-raised)]"
+          >
+            <span class="font-mono text-xs text-[color:var(--color-text-dim)]">{s.num}</span>
+            <div class="flex items-end justify-between">
+              <h3 class="font-display text-2xl text-[color:var(--color-text)]">{s.label}</h3>
+              <span class="text-[color:var(--color-gold)] opacity-0 transition-opacity group-hover:opacity-100">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal border-t border-[color:var(--color-line)] px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="font-mono text-[13px] text-[color:var(--color-gold)]">07 — Contact</p>
+      <h2 class="font-display mt-6 max-w-xl text-3xl leading-snug md:text-4xl">
+        Restons en contact.
+      </h2>
+      <div class="mt-10 grid gap-8 text-[15px] text-[color:var(--color-text-dim)] sm:grid-cols-3">
+        <div>
+          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Email</p>
+          <a href={`mailto:${profile.email}`} class="mt-1 block text-[color:var(--color-text)] hover:text-[color:var(--color-gold)]">
+            {profile.email}
+          </a>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Adresse</p>
+          <p class="mt-1 text-[color:var(--color-text)]">{profile.adresse}</p>
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-wide text-[color:var(--color-text-dim)]/60">Téléphones</p>
+          <p class="mt-1 text-[color:var(--color-text)]">{profile.telephones.join(" · ")}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-[color:var(--color-line)] px-6 py-10 text-center text-xs text-[color:var(--color-text-dim)]">
+    © {new Date().getFullYear()} {profile.nom} · Site construit avec Astro — Phase 1/9
+  </footer>
+
+  <ScrollReveal />
+</BaseLayout>

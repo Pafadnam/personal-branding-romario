@@ -1,0 +1,21 @@
+{
+  "nom": "TIENDREBEOGO Kiswend-Sida Franck Romario",
+  "profession": "Inspecteur des Douanes",
+  "sousTitre": "Conseiller Juridique",
+  "slogan": "Intégrité, Discipline et Service à la Nation",
+  "nationalite": "Burkinabè",
+  "adresse": "01 BP 506 Ouagadougou 01",
+  "matricule": "BF-DGD-2026",
+  "telephones": ["60 91 04 46", "64 38 77 30", "79 67 32 20", "71 24 68 67", "75 52 20 60"],
+  "email": "franckromario@gmail.com",
+  "linkedin": "https://linkedin.com/in/franck-romario",
+  "sections": [
+    { "id": "profil", "label": "Profil", "num": "01", "href": "/#profil" },
+    { "id": "cv", "label": "CV", "num": "02", "href": "/cv" },
+    { "id": "publications", "label": "Publications", "num": "03", "href": "/publications" },
+    { "id": "journaux", "label": "Journaux d'activités", "num": "04", "href": "/journaux" },
+    { "id": "galerie", "label": "Galerie", "num": "05", "href": "/galerie" },
+    { "id": "documents", "label": "Documents", "num": "06", "href": "/documents" },
+    { "id": "contact", "label": "Contact", "num": "07", "href": "/#contact" }
+  ]
+}

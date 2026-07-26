@@ -1,0 +1,67 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+
+const experiences = (await getCollection("experiences")).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+const formations = (await getCollection("formations")).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+---
+<PageLayout
+  title="Curriculum Vitae"
+  eyebrow="02 — Parcours"
+  description="Parcours professionnel et formations."
+>
+  <div class="mb-10 flex justify-end">
+    <a
+      href="/cv/cv.pdf"
+      class="inline-flex items-center gap-2 rounded-full bg-[color:var(--color-gold)] px-6 py-3 text-[13px] font-medium text-[color:var(--color-ink)] transition-transform hover:-translate-y-0.5"
+    >
+      Télécharger en PDF ↓
+    </a>
+  </div>
+
+  <div class="grid gap-16 lg:grid-cols-2">
+    <!-- Expériences -->
+    <section class="reveal">
+      <h2 class="font-display text-2xl text-[color:var(--color-text)]">Expériences</h2>
+      <ol class="mt-8 space-y-8 border-l border-[color:var(--color-line)] pl-6">
+        {experiences.map((exp) => (
+          <li class="relative">
+            <span class="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full bg-[color:var(--color-gold)]"></span>
+            <p class="font-mono text-xs text-[color:var(--color-text-dim)]">
+              {exp.data.dateDebut} — {exp.data.dateFin ?? "aujourd'hui"}
+            </p>
+            <h3 class="font-display mt-1 text-xl text-[color:var(--color-text)]">{exp.data.poste}</h3>
+            <p class="text-[14px] text-[color:var(--color-gold-dim)]">
+              {exp.data.structure}{exp.data.lieu ? ` · ${exp.data.lieu}` : ""}
+            </p>
+            <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+              {exp.body}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- Formations -->
+    <section class="reveal">
+      <h2 class="font-display text-2xl text-[color:var(--color-text)]">Formations</h2>
+      <ol class="mt-8 space-y-8 border-l border-[color:var(--color-line)] pl-6">
+        {formations.map((f) => (
+          <li class="relative">
+            <span class="absolute -left-[27px] top-1.5 h-2.5 w-2.5 rounded-full bg-[color:var(--color-gold)]"></span>
+            <p class="font-mono text-xs text-[color:var(--color-text-dim)]">{f.data.annee}</p>
+            <h3 class="font-display mt-1 text-xl text-[color:var(--color-text)]">{f.data.diplome}</h3>
+            <p class="text-[14px] text-[color:var(--color-gold-dim)]">{f.data.etablissement}</p>
+            <p class="mt-2 text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+              {f.body}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+</PageLayout>

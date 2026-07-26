@@ -1,0 +1,151 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media téléversés par le client (photos, logos, journaux...)
+media_folder: "public/images"
+public_folder: "/images"
+
+locale: "fr"
+
+site_url: https://franck-romario.netlify.app
+display_url: https://franck-romario.netlify.app
+logo_url: /favicon.svg
+
+collections:
+  # --- Profil (fichier unique, pas une liste) ---
+  - name: "profil"
+    label: "Profil"
+    files:
+      - name: "identite"
+        label: "Informations personnelles"
+        file: "src/data/profile.json"
+        fields:
+          - { label: "Nom complet", name: "nom", widget: "string" }
+          - { label: "Profession", name: "profession", widget: "string" }
+          - { label: "Sous-titre", name: "sousTitre", widget: "string" }
+          - { label: "Slogan", name: "slogan", widget: "string" }
+          - { label: "Nationalité", name: "nationalite", widget: "string" }
+          - { label: "Adresse", name: "adresse", widget: "string" }
+          - { label: "Matricule", name: "matricule", widget: "string" }
+          - label: "Téléphones"
+            name: "telephones"
+            widget: "list"
+            field: { label: "Numéro", name: "numero", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "LinkedIn", name: "linkedin", widget: "string" }
+          - label: "Sections de navigation"
+            name: "sections"
+            widget: "list"
+            fields:
+              - { label: "Identifiant", name: "id", widget: "string" }
+              - { label: "Libellé", name: "label", widget: "string" }
+              - { label: "Numéro", name: "num", widget: "string" }
+              - { label: "Lien", name: "href", widget: "string" }
+
+  # --- CV : Expériences ---
+  - name: "experiences"
+    label: "CV — Expériences"
+    folder: "src/content/cv/experiences"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Poste", name: "poste", widget: "string" }
+      - { label: "Structure", name: "structure", widget: "string" }
+      - { label: "Lieu", name: "lieu", widget: "string", required: false }
+      - { label: "Date de début", name: "dateDebut", widget: "string", hint: "Ex. 2020" }
+      - { label: "Date de fin", name: "dateFin", widget: "string", required: false, hint: "Laisser vide si poste actuel" }
+      - { label: "Ordre d'affichage", name: "ordre", widget: "number", default: 1 }
+      - { label: "Description", name: "body", widget: "markdown" }
+
+  # --- CV : Formations ---
+  - name: "formations"
+    label: "CV — Formations"
+    folder: "src/content/cv/formations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Diplôme", name: "diplome", widget: "string" }
+      - { label: "Établissement", name: "etablissement", widget: "string" }
+      - { label: "Année", name: "annee", widget: "string" }
+      - { label: "Ordre d'affichage", name: "ordre", widget: "number", default: 1 }
+      - { label: "Description", name: "body", widget: "markdown" }
+
+  # --- Publications ---
+  - name: "publications"
+    label: "Publications"
+    folder: "src/content/publications"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - label: "Catégorie"
+        name: "categorie"
+        widget: "select"
+        options: ["article", "communique", "actualite", "note", "rapport"]
+      - { label: "Résumé", name: "resume", widget: "text" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Document PDF associé", name: "documentPdf", widget: "file", required: false }
+      - { label: "Contenu complet", name: "body", widget: "markdown" }
+
+  # --- Journaux d'activités ---
+  - name: "activites"
+    label: "Journaux d'activités"
+    folder: "src/content/activites"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Lieu", name: "lieu", widget: "string", required: false }
+      - label: "Images"
+        name: "images"
+        widget: "list"
+        field: { label: "Image", name: "image", widget: "image" }
+        required: false
+      - { label: "Détail", name: "body", widget: "markdown", required: false }
+
+  # --- Galerie ---
+  - name: "galerie"
+    label: "Galerie"
+    folder: "src/content/galerie"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["photo", "video"]
+      - { label: "Fichier / URL", name: "url", widget: "file" }
+      - { label: "Album", name: "album", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime", required: false }
+
+  # --- Documents ---
+  - name: "documents"
+    label: "Documents"
+    folder: "src/content/documents"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "titre", widget: "string" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["pdf", "word", "excel", "zip"]
+      - { label: "Fichier", name: "fichier", widget: "file", media_folder: "/public/documents", public_folder: "/documents" }
+      - { label: "Catégorie", name: "categorie", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime", required: false }
+
+  # --- Témoignages ---
+  - name: "temoignages"
+    label: "Témoignages"
+    folder: "src/content/temoignages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Auteur", name: "auteur", widget: "string" }
+      - { label: "Fonction", name: "fonction", widget: "string", required: false }
+      - { label: "Citation", name: "citation", widget: "text" }

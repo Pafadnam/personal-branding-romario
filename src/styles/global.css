@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette — resserrée, éditoriale */
+  --color-ink: #0B0E13;          /* fond principal, profond et neutre */
+  --color-ink-raised: #12161E;   /* surfaces légèrement surélevées */
+  --color-paper: #FAF8F3;        /* carte / contraste clair */
+  --color-line: #23282F;         /* filets, séparateurs sur fond sombre */
+  --color-gold: #C9A24B;         /* accent unique — sceau, focus, liens */
+  --color-gold-dim: #8C7539;
+  --color-text: #EDEBE4;         /* texte principal sur fond sombre */
+  --color-text-dim: #9BA0AA;     /* texte secondaire */
+  --color-text-onPaper: #16181C;
+
+  --font-display: "Instrument Serif", "Georgia", serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-text);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Révélation douce au scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.65, 0.3, 0.9), transform 0.7s cubic-bezier(0.2, 0.65, 0.3, 0.9);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grain subtil, très discret, uniquement sur la carte */
+.paper-grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(22,24,28,0.03) 1px, transparent 0);
+  background-size: 3px 3px;
+}
+
+/* Halo doré très doux derrière la carte */
+.gold-glow {
+  background: radial-gradient(circle at 30% 20%, rgba(201,162,75,0.18), transparent 60%);
+}

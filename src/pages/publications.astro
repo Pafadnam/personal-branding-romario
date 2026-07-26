@@ -1,0 +1,46 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+
+const publications = (await getCollection("publications")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const categorieLabel: Record<string, string> = {
+  article: "Article",
+  communique: "Communiqué",
+  actualite: "Actualité",
+  note: "Note",
+  rapport: "Rapport",
+};
+---
+<PageLayout
+  title="Publications"
+  eyebrow="03 — Publications"
+  description="Articles, communiqués, notes et rapports."
+>
+  <div class="grid gap-px overflow-hidden rounded-xl bg-[color:var(--color-line)] sm:grid-cols-2">
+    {publications.map((pub) => (
+      <article class="reveal flex flex-col gap-4 bg-[color:var(--color-ink)] p-8">
+        <div class="flex items-center justify-between">
+          <span class="rounded-full border border-[color:var(--color-gold-dim)] px-3 py-1 text-[11px] uppercase tracking-wide text-[color:var(--color-gold)]">
+            {categorieLabel[pub.data.categorie]}
+          </span>
+          <time class="font-mono text-[11px] text-[color:var(--color-text-dim)]">
+            {pub.data.date.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
+          </time>
+        </div>
+        <h2 class="font-display text-2xl leading-snug text-[color:var(--color-text)]">
+          {pub.data.titre}
+        </h2>
+        <p class="text-[14px] leading-relaxed text-[color:var(--color-text-dim)]">
+          {pub.data.resume}
+        </p>
+      </article>
+    ))}
+  </div>
+
+  {publications.length === 0 && (
+    <p class="text-[color:var(--color-text-dim)]">Aucune publication pour le moment.</p>
+  )}
+</PageLayout>

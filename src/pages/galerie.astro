@@ -1,0 +1,31 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+
+const items = await getCollection("galerie");
+---
+<PageLayout
+  title="Galerie"
+  eyebrow="05 — Galerie"
+  description="Photos et vidéos des activités professionnelles."
+>
+  {items.length > 0 ? (
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item) => (
+        <figure class="reveal group overflow-hidden rounded-xl bg-[color:var(--color-ink-raised)]">
+          <div class="aspect-[4/3] w-full bg-[color:var(--color-line)]">
+            {/* Remplacer par <img src={item.data.url} alt={item.data.titre} /> une fois les médias fournis */}
+          </div>
+          <figcaption class="flex items-center justify-between p-4">
+            <span class="text-[13px] text-[color:var(--color-text)]">{item.data.titre}</span>
+            {item.data.album && (
+              <span class="font-mono text-[11px] text-[color:var(--color-text-dim)]">{item.data.album}</span>
+            )}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  ) : (
+    <p class="text-[color:var(--color-text-dim)]">Aucun média pour le moment.</p>
+  )}
+</PageLayout>

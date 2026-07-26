@@ -1,0 +1,28 @@
+---
+import profile from "../data/profile.json";
+---
+<nav class="sticky top-0 z-30 bg-[color:var(--color-ink)]/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl items-center justify-between border-b border-[color:var(--color-line)] px-6 py-4">
+    <a href="/" class="font-display text-base italic tracking-tight text-[color:var(--color-text)]">
+      F. Romario TIENDREBEOGO
+    </a>
+    <ul class="hidden gap-7 md:flex">
+      {profile.sections.slice(0, -1).map((s) => (
+        <li>
+          <a
+            href={s.href}
+            class="text-[13px] text-[color:var(--color-text-dim)] transition-colors hover:text-[color:var(--color-gold)]"
+          >
+            {s.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a
+      href="/#contact"
+      class="rounded-full border border-[color:var(--color-gold-dim)] px-4 py-1.5 text-[13px] text-[color:var(--color-gold)] transition-colors hover:bg-[color:var(--color-gold)] hover:text-[color:var(--color-ink)]"
+    >
+      Contact
+    </a>
+  </div>
+</nav>
