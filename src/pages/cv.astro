@@ -5,6 +5,9 @@ import { getCollection } from "astro:content";
 
 const experiences = (await getCollection("experiences")).sort((a, b) => a.data.ordre - b.data.ordre);
 const formations = (await getCollection("formations")).sort((a, b) => a.data.ordre - b.data.ordre);
+const documents = await getCollection("documents");
+const cvDoc = documents.find((d) => d.data.categorie === "CV") ?? documents.find((d) => d.id === "cv-pdf");
+const cvHref = cvDoc?.data.fichier ?? "/cv/cv.pdf";
 
 const competences = [
   { titre: "Droit douanier", detail: "Maîtrise du Code des douanes et des accords régionaux (UEMOA, CEDEAO)." },
@@ -53,6 +56,6 @@ const competences = [
   </div>
 
   <div style="margin-top:40px;">
-    <a href="/cv/cv.pdf" class="btn btn-primary"><Icon name="download" />Télécharger le CV (PDF)</a>
+    <a href={cvHref} class="btn btn-primary"><Icon name="download" />Télécharger le CV (PDF)</a>
   </div>
 </PageLayout>
