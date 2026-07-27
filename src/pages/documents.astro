@@ -1,5 +1,6 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const docs = await getCollection("documents");
@@ -20,7 +21,7 @@ const typeIcon: Record<string, string> = { pdf: "PDF", word: "DOC", excel: "XLS"
             {doc.data.categorie && <p class="doc-cat">{doc.data.categorie}</p>}
           </div>
         </div>
-        <a href={doc.data.fichier} class="doc-dl">Télécharger →</a>
+        <a href={doc.data.fichier} class="doc-dl"><Icon name="download" class="icon icon-sm" />Télécharger</a>
       </li>
     ))}
   </ul>

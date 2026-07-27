@@ -1,5 +1,6 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const distinctions = await getCollection("distinctions");
@@ -19,7 +20,7 @@ const typeLabel: Record<string, string> = {
   <div class="badge-row">
     {distinctions.map((d) => (
       <div class="badge">
-        <div class="badge-cat">{typeLabel[d.data.type]}</div>
+        <div class="badge-cat"><Icon name="badge" class="icon icon-sm" style="vertical-align:-2px;margin-right:4px;" />{typeLabel[d.data.type]}</div>
         <h4>{d.data.titre}</h4>
         <p>{d.body}</p>
       </div>

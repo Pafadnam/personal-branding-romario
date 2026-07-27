@@ -1,5 +1,6 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const activites = (await getCollection("activites")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -17,7 +18,7 @@ const activites = (await getCollection("activites")).sort((a, b) => b.data.date.
         </div>
         <h3>{act.data.titre}</h3>
         <p>{act.data.description}</p>
-        <span class="pub-link">Lire l'entrée →</span>
+        <span class="pub-link">Lire l'entrée <Icon name="arrow-right" class="icon icon-sm" /></span>
       </div>
     ))}
   </div>

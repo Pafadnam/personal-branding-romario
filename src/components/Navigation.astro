@@ -1,5 +1,6 @@
 ---
 import profile from "../data/profile.json";
+import Icon from "./Icon.astro";
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
@@ -10,7 +11,7 @@ function isActive(href: string) {
 ---
 <div class="topbar">
   <div class="topbar-row">
-    <a href="/" class="brand">FR<span>.</span>TIENDREBEOGO</a>
+    <a href="/" class="brand"><Icon name="shield" class="brand-icon" />FR<span>.</span>TIENDREBEOGO</a>
   </div>
   <nav class="tablist" aria-label="Sections du site">
     {profile.sections.map((s) => (

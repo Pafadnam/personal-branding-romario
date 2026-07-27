@@ -1,5 +1,6 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const experiences = (await getCollection("experiences")).sort((a, b) => a.data.ordre - b.data.ordre);
@@ -53,6 +54,6 @@ const competences = [
   </div>
 
   <div style="margin-top:40px;">
-    <a href="/cv/cv.pdf" class="btn btn-primary">Télécharger le CV (PDF)</a>
+    <a href="/cv/cv.pdf" class="btn btn-primary"><Icon name="download" />Télécharger le CV (PDF)</a>
   </div>
 </PageLayout>

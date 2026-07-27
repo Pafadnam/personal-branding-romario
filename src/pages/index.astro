@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import CarteIdentite from "../components/CarteIdentite.astro";
+import Icon from "../components/Icon.astro";
 import profile from "../data/profile.json";
 ---
 <BaseLayout>
@@ -10,20 +11,33 @@ import profile from "../data/profile.json";
   <header class="hero">
     <div class="hero-content">
       <div class="portrait-crossfade" role="img" aria-label={`Photo de ${profile.nom}, ${profile.profession}`}>
-        FR
+        <img class="portrait-img is-active" src="/images/portrait-uniforme.jpg" alt="" />
+        <img class="portrait-img" src="/images/portrait-civil.jpg" alt="" />
       </div>
-      <h1 class="title">{profile.sousTitre.split(" ")[0]} Romario <em>Tiendrebeogo</em></h1>
+      <h1 class="title">Kiswend-Sida Franck <em>Romario</em></h1>
       <p class="role-line">
         {profile.profession} — Direction Générale des Douanes du Burkina Faso.
         Conseiller juridique et fonctionnaire de douane au service de l'État.
       </p>
       <p class="slogan">« {profile.slogan} »</p>
       <div class="hero-cta">
-        <a href="/#contact" class="btn btn-primary">Prendre contact</a>
-        <a href="/cv" class="btn btn-ghost">Voir le CV</a>
+        <a href="/#contact" class="btn btn-primary"><Icon name="send" />Prendre contact</a>
+        <a href="/cv" class="btn btn-ghost">Voir le CV<Icon name="arrow-right" /></a>
       </div>
     </div>
   </header>
+
+  <script>
+    const imgs = document.querySelectorAll<HTMLImageElement>(".portrait-img");
+    if (imgs.length > 1) {
+      let i = 0;
+      setInterval(() => {
+        imgs[i].classList.remove("is-active");
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add("is-active");
+      }, 4000);
+    }
+  </script>
 
   <main class="panels">
     <section class="panel" id="profil">
@@ -58,12 +72,12 @@ import profile from "../data/profile.json";
         <div class="contact-grid">
           <div>
             <ul class="contact-list">
-              <li><span>EMAIL</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-              <li><span>LINKEDIN</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
+              <li><span><Icon name="mail" class="icon icon-sm" />EMAIL</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+              <li><span><Icon name="linkedin" class="icon icon-sm" />LINKEDIN</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
               {profile.telephones.map((tel, i) => (
-                <li><span>TÉLÉPHONE {i + 1}</span><a href={`tel:+226${tel.replace(/\s/g, "")}`}>{tel}</a></li>
+                <li><span><Icon name="phone" class="icon icon-sm" />TÉLÉPHONE {i + 1}</span><a href={`tel:+226${tel.replace(/\s/g, "")}`}>{tel}</a></li>
               ))}
-              <li><span>ADRESSE</span><span>{profile.adresse}</span></li>
+              <li><span><Icon name="map-pin" class="icon icon-sm" />ADRESSE</span><span>{profile.adresse}</span></li>
             </ul>
           </div>
           <form class="form-box" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -78,7 +92,7 @@ import profile from "../data/profile.json";
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Votre message" required></textarea>
             <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
-              Envoyer le message
+              <Icon name="send" />Envoyer le message
             </button>
           </form>
         </div>

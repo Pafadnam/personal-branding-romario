@@ -1,16 +1,11 @@
 ---
 import profile from "../data/profile.json";
-
-const initiales = profile.nom
-  .split(" ")
-  .filter((w) => w === w.toUpperCase())
-  .map((w) => w[0])
-  .join("")
-  .slice(0, 2) || "FR";
 ---
 <div class="id-card">
   <div class="id-card-label">CARTE PROFESSIONNELLE</div>
-  <div class="id-photo" aria-hidden="true">{initiales}</div>
+  <div class="id-photo">
+    <img src="/images/portrait-uniforme.jpg" alt={`Photo de ${profile.nom}`} />
+  </div>
   <div class="id-name">F. Romario Tiendrebeogo</div>
   <div class="id-role">{profile.profession}</div>
   <div class="id-row"><span>Nationalité</span><span>{profile.nationalite}</span></div>

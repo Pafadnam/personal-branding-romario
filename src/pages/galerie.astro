@@ -1,5 +1,6 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection } from "astro:content";
 
 const items = await getCollection("galerie");
@@ -12,7 +13,10 @@ const items = await getCollection("galerie");
   <div class="gallery-grid">
     {items.map((item) => (
       <div class="gallery-item">
-        <span class="ph" set:html={item.data.titre.replace(" — ", "<br />— ")} />
+        <div class="ph-wrap">
+          <Icon name={item.data.type === "video" ? "video" : "image"} class="icon icon-lg" />
+          <span class="ph" set:html={item.data.titre.replace(" — ", "<br />— ")} />
+        </div>
       </div>
     ))}
   </div>
