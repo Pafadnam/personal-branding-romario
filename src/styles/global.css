@@ -117,8 +117,8 @@ h1.title em{font-style:italic;font-weight:300;color:var(--brass-light);}
   color:var(--burgundy);margin-bottom:10px;
 }
 h2.panel-title{
-  font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;
-  margin-bottom:clamp(28px,5vw,40px);max-width:640px;
+  font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,1.9rem);font-weight:600;
+  margin-bottom:clamp(28px,5vw,40px);
 }
 
 /* ---------- Profil ---------- */
@@ -135,11 +135,8 @@ h2.panel-title{
 .id-role{font-size:.84rem;color:var(--parchment-2);margin-bottom:16px;}
 .id-row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.7rem;padding:8px 0;border-top:1px solid rgba(243,238,225,.12);color:var(--parchment-2);}
 .id-row span:first-child{color:var(--brass-light);}
-.qr-box{margin-top:16px;display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px dashed var(--line);}
-.qr-mini{width:52px;height:52px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.53rem;color:var(--ink);text-align:center;flex-shrink:0;}
-.qr-mini-txt{font-family:var(--mono);font-size:.65rem;color:var(--parchment-2);line-height:1.4;}
 
-.bio p{margin-bottom:16px;color:var(--text-soft);font-size:clamp(.95rem,2vw,1.02rem);max-width:640px;}
+.bio p{margin-bottom:16px;color:var(--text-soft);font-size:clamp(.95rem,2vw,1.02rem);max-width:640px;text-align:justify;text-justify:inter-word;}
 .bio p:first-of-type{font-size:clamp(1rem,2vw,1.1rem);color:var(--text-dark);}
 .bio p:first-of-type::first-letter{font-family:var(--serif);font-size:2.9rem;float:left;line-height:.8;padding:5px 8px 0 0;color:var(--burgundy);font-weight:600;}
 .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
