@@ -25,3 +25,8 @@ function isActive(href: string) {
     ))}
   </nav>
 </div>
+
+<script>
+  const activeTab = document.querySelector<HTMLElement>('.tab-btn[aria-selected="true"]');
+  activeTab?.scrollIntoView({ block: "nearest", inline: "center" });
+</script>

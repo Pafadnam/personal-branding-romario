@@ -29,7 +29,8 @@ import profile from "../data/profile.json";
 
   <script>
     const imgs = document.querySelectorAll<HTMLImageElement>(".portrait-img");
-    if (imgs.length > 1) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (imgs.length > 1 && !reduceMotion) {
       let i = 0;
       setInterval(() => {
         imgs[i].classList.remove("is-active");
