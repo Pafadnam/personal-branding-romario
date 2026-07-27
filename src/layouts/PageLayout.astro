@@ -5,11 +5,10 @@ import profile from "../data/profile.json";
 
 interface Props {
   title: string;
-  rubrique: string;
   description?: string;
 }
 
-const { title, rubrique, description } = Astro.props;
+const { title, description } = Astro.props;
 ---
 <BaseLayout title={`${title} — ${profile.nom}`} description={description}>
   <Navigation />
@@ -17,7 +16,6 @@ const { title, rubrique, description } = Astro.props;
   <main class="panels">
     <section class="panel">
       <div class="panel-inner">
-        <p class="rubrique">{rubrique}</p>
         <h2 class="panel-title">{title}</h2>
         <slot />
       </div>

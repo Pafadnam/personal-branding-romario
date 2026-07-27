@@ -170,6 +170,7 @@ h2.panel-title{
 .badge{background:var(--parchment);padding:26px 22px;border-top:2px solid var(--brass);transition:background-color .2s;}
 .badge:hover{background:var(--parchment-2);}
 .badge .badge-cat{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:10px;display:flex;align-items:center;}
+.badge-icon{color:var(--brass);margin-bottom:12px;}
 .badge h4{font-family:var(--serif);font-size:1rem;margin-bottom:6px;}
 .badge p{font-size:.78rem;color:var(--text-soft);font-family:var(--mono);}
 
