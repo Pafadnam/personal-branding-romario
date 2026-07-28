@@ -19,6 +19,6 @@
     { "id": "publications", "label": "Publications", "num": "04", "href": "/publications" },
     { "id": "journaux", "label": "Journal", "num": "05", "href": "/journaux" },
     { "id": "galerie", "label": "Galerie", "num": "06", "href": "/galerie" },
-    { "id": "contact", "label": "Contact", "num": "07", "href": "/#contact" }
+    { "id": "contact", "label": "Contact", "num": "07", "href": "/contact" }
   ]
 }
