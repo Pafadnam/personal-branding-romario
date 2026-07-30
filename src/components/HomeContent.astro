@@ -1,6 +1,7 @@
 ---
 import CarteIdentite from "./CarteIdentite.astro";
 import Icon from "./Icon.astro";
+import PhotoCarousel from "./PhotoCarousel.astro";
 import profile from "../data/profile.json";
 import { useTranslations, expertises, type Lang } from "../i18n/ui";
 
@@ -11,13 +12,25 @@ const { lang = "fr" } = Astro.props;
 const t = useTranslations(lang);
 const contactHref = lang === "fr" ? "/contact" : "/en/contact";
 const cvHref = lang === "fr" ? "/cv" : "/en/cv";
+
+const heroSlides =
+  lang === "fr"
+    ? [
+        { src: "/images/portrait-uniforme.jpg", alt: "Portrait officiel en uniforme" },
+        { src: "/images/portrait-civil.jpg", alt: "Portrait en tenue civile" },
+        { src: "/images/soutenance-1.jpg", alt: "Soutenance de Master en Droit — 21 juillet 2026" },
+        { src: "/images/soutenance-2.jpg", alt: "Remise du diplôme — Master en Droit" },
+      ]
+    : [
+        { src: "/images/portrait-uniforme.jpg", alt: "Official portrait in uniform" },
+        { src: "/images/portrait-civil.jpg", alt: "Portrait in civilian attire" },
+        { src: "/images/soutenance-1.jpg", alt: "Master's Degree in Law defence — 21 July 2026" },
+        { src: "/images/soutenance-2.jpg", alt: "Diploma ceremony — Master's Degree in Law" },
+      ];
 ---
 <header class="hero">
   <div class="hero-content">
-    <div class="portrait-crossfade" role="img" aria-label={`Photo de ${profile.nom}, ${profile.profession}`}>
-      <img class="portrait-img is-active" src="/images/portrait-uniforme.jpg" alt="" />
-      <img class="portrait-img" src="/images/portrait-civil.jpg" alt="" />
-    </div>
+    <PhotoCarousel slides={heroSlides} />
     <h1 class="title">{t("hero.title")}</h1>
     <p class="role-line">{t("hero.role")}</p>
     <p class="slogan">« {t("hero.slogan")} »</p>
@@ -27,19 +40,6 @@ const cvHref = lang === "fr" ? "/cv" : "/en/cv";
     </div>
   </div>
 </header>
-
-<script>
-  const imgs = document.querySelectorAll<HTMLImageElement>(".portrait-img");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (imgs.length > 1 && !reduceMotion) {
-    let i = 0;
-    setInterval(() => {
-      imgs[i].classList.remove("is-active");
-      i = (i + 1) % imgs.length;
-      imgs[i].classList.add("is-active");
-    }, 4000);
-  }
-</script>
 
 <main class="panels">
   <section class="panel" id="profil">

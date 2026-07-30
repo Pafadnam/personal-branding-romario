@@ -1,0 +1,103 @@
+---
+interface Slide {
+  src: string;
+  alt: string;
+}
+interface Props {
+  slides: Slide[];
+}
+const { slides } = Astro.props;
+---
+<div class="carousel" data-carousel>
+  <div class="carousel-frame">
+    {slides.map((s, i) => (
+      <button
+        type="button"
+        class:list={["carousel-slide-btn", { "is-active": i === 0 }]}
+        data-index={i}
+        aria-label={`Agrandir : ${s.alt}`}
+      >
+        <img class="carousel-slide" src={s.src} alt={s.alt} loading={i === 0 ? "eager" : "lazy"} />
+      </button>
+    ))}
+  </div>
+  {slides.length > 1 && (
+    <div class="carousel-dots" role="tablist" aria-label="Navigation du carrousel">
+      {slides.map((s, i) => (
+        <button
+          type="button"
+          class:list={["carousel-dot", { "is-active": i === 0 }]}
+          data-goto={i}
+          aria-label={`Photo ${i + 1} sur ${slides.length} — ${s.alt}`}
+        ></button>
+      ))}
+    </div>
+  )}
+</div>
+
+<div class="lightbox" data-lightbox aria-hidden="true">
+  <button type="button" class="lightbox-close" data-lightbox-close aria-label="Fermer">✕</button>
+  <button type="button" class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Photo précédente">‹</button>
+  <img class="lightbox-img" data-lightbox-img src="" alt="" />
+  <button type="button" class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Photo suivante">›</button>
+</div>
+
+<script define:vars={{ slides }}>
+  const carousel = document.querySelector("[data-carousel]");
+  const lightbox = document.querySelector("[data-lightbox]");
+  const lightboxImg = lightbox.querySelector("[data-lightbox-img]");
+  const slideBtns = Array.from(carousel.querySelectorAll(".carousel-slide-btn"));
+  const dots = Array.from(carousel.querySelectorAll(".carousel-dot"));
+  let current = 0;
+  let timer = null;
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+    slideBtns.forEach((b, i) => b.classList.toggle("is-active", i === current));
+    dots.forEach((d, i) => d.classList.toggle("is-active", i === current));
+  }
+
+  function startAutoplay() {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || slides.length < 2) return;
+    timer = setInterval(() => goTo(current + 1), 4500);
+  }
+  function stopAutoplay() {
+    if (timer) clearInterval(timer);
+  }
+
+  dots.forEach((d) => d.addEventListener("click", () => { goTo(Number(d.dataset.goto)); stopAutoplay(); startAutoplay(); }));
+
+  function openLightbox(index) {
+    current = index;
+    lightboxImg.src = slides[index].src;
+    lightboxImg.alt = slides[index].alt;
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox() {
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+  function showInLightbox(index) {
+    current = (index + slides.length) % slides.length;
+    lightboxImg.src = slides[current].src;
+    lightboxImg.alt = slides[current].alt;
+  }
+
+  slideBtns.forEach((btn, i) => btn.addEventListener("click", () => openLightbox(i)));
+  lightbox.querySelector("[data-lightbox-close]").addEventListener("click", closeLightbox);
+  lightbox.querySelector("[data-lightbox-prev]").addEventListener("click", () => showInLightbox(current - 1));
+  lightbox.querySelector("[data-lightbox-next]").addEventListener("click", () => showInLightbox(current + 1));
+  lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("is-open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") showInLightbox(current - 1);
+    if (e.key === "ArrowRight") showInLightbox(current + 1);
+  });
+
+  startAutoplay();
+</script>
