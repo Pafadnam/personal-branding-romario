@@ -1,0 +1,9 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import CvContent from "../../components/CvContent.astro";
+import { useTranslations } from "../../i18n/ui";
+const t = useTranslations("en");
+---
+<PageLayout title={t("cv.title")} description="Professional career, education and skills." lang="en">
+  <CvContent lang="en" />
+</PageLayout>

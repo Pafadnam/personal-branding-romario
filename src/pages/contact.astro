@@ -1,65 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import profile from "../data/profile.json";
+import ContactContent from "../components/ContactContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Échanger avec Franck Romario"
-  description="Coordonnées, formulaire de contact et questions fréquentes."
->
-  <div class="contact-grid">
-    <div>
-      <ul class="contact-list">
-        <li><span><Icon name="mail" class="icon icon-sm" />EMAIL</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-        <li><span><Icon name="linkedin" class="icon icon-sm" />LINKEDIN</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
-        {profile.telephones.map((tel, i) => {
-          const isWhatsapp = i < 2;
-          const digits = tel.replace(/\s/g, "");
-          return (
-            <li>
-              <span>
-                <Icon name={isWhatsapp ? "whatsapp" : "phone"} class="icon icon-sm" />
-                TÉLÉPHONE {i + 1}{isWhatsapp ? " (WhatsApp)" : ""}
-              </span>
-              <a href={isWhatsapp ? `https://wa.me/226${digits}` : `tel:+226${digits}`} target={isWhatsapp ? "_blank" : undefined} rel={isWhatsapp ? "noopener" : undefined}>
-                {tel}
-              </a>
-            </li>
-          );
-        })}
-        <li><span><Icon name="map-pin" class="icon icon-sm" />ADRESSE</span><span>{profile.adresse}</span></li>
-      </ul>
-    </div>
-    <form class="form-box" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="contact" />
-      <p style="position:absolute;left:-9999px;">
-        <label>Ne pas remplir : <input name="bot-field" /></label>
-      </p>
-      <label for="nom">Nom complet</label>
-      <input type="text" id="nom" name="name" placeholder="Votre nom" required />
-      <label for="email">Adresse e-mail</label>
-      <input type="email" id="email" name="email" placeholder="vous@exemple.com" required />
-      <label for="message">Message</label>
-      <textarea id="message" name="message" placeholder="Votre message" required></textarea>
-      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
-        <Icon name="send" />Envoyer le message
-      </button>
-    </form>
-  </div>
-
-  <div class="faq-list">
-    <p class="subhead">Questions fréquentes</p>
-    <details class="faq-item">
-      <summary>Comment puis-je vous contacter pour une demande officielle ?</summary>
-      <p>Utilisez le formulaire ci-dessus, ou l'un des numéros et l'adresse e-mail indiqués.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Le CV est-il téléchargeable ?</summary>
-      <p>Oui, une version PDF complète est disponible dans la rubrique Parcours, mise à jour à chaque modification.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Les publications sont-elles mises à jour régulièrement ?</summary>
-      <p>Les articles, communiqués et rapports sont ajoutés dès leur disponibilité.</p>
-    </details>
-  </div>
+<PageLayout title={t("contact.title")} description="Coordonnées, formulaire de contact et questions fréquentes." lang="fr">
+  <ContactContent lang="fr" />
 </PageLayout>

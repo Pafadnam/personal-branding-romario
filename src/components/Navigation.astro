@@ -1,8 +1,33 @@
 ---
 import profile from "../data/profile.json";
 import Icon from "./Icon.astro";
+import { useTranslations, type Lang } from "../i18n/ui";
 
-const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const pathname = Astro.url.pathname;
+const currentPath = pathname.replace(/\/$/, "") || "/";
+
+// Chemin équivalent dans l'autre langue
+const otherLang: Lang = lang === "fr" ? "en" : "fr";
+const otherPath =
+  lang === "fr"
+    ? `/en${pathname === "/" ? "" : pathname}`
+    : pathname.replace(/^\/en/, "") || "/";
+
+const sections = [
+  { key: "nav.profil", href: lang === "fr" ? "/#profil" : "/en/#profil" },
+  { key: "nav.parcours", href: lang === "fr" ? "/cv" : "/en/cv" },
+  { key: "nav.distinctions", href: lang === "fr" ? "/distinctions" : "/en/distinctions" },
+  { key: "nav.publications", href: lang === "fr" ? "/publications" : "/en/publications" },
+  { key: "nav.journal", href: lang === "fr" ? "/journaux" : "/en/journaux" },
+  { key: "nav.galerie", href: lang === "fr" ? "/galerie" : "/en/galerie" },
+  { key: "nav.contact", href: lang === "fr" ? "/contact" : "/en/contact" },
+] as const;
 
 function isActive(href: string) {
   const target = href.split("#")[0].replace(/\/$/, "") || "/";
@@ -11,16 +36,15 @@ function isActive(href: string) {
 ---
 <div class="topbar">
   <div class="topbar-row">
-    <a href="/" class="brand"><Icon name="shield" class="brand-icon" />FR<span>.</span>TIENDREBEOGO</a>
+    <a href={lang === "fr" ? "/" : "/en"} class="brand"><Icon name="shield" class="brand-icon" />FR<span>.</span>TIENDREBEOGO</a>
+    <a href={otherPath} class="lang-switch" aria-label={`Switch to ${otherLang === "fr" ? "Français" : "English"}`}>
+      {otherLang.toUpperCase()}
+    </a>
   </div>
   <nav class="tablist" aria-label="Sections du site">
-    {profile.sections.map((s) => (
-      <a
-        href={s.href}
-        class="tab-btn"
-        aria-selected={isActive(s.href) ? "true" : "false"}
-      >
-        {s.label}
+    {sections.map((s) => (
+      <a href={s.href} class="tab-btn" aria-selected={isActive(s.href) ? "true" : "false"}>
+        {t(s.key)}
       </a>
     ))}
   </nav>

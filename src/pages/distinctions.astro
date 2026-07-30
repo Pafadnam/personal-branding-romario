@@ -1,47 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
-
-const distinctions = await getCollection("distinctions");
-const temoignages = await getCollection("temoignages");
-
-const typeLabel: Record<string, string> = {
-  certification: "Certification",
-  distinction: "Distinction",
-  formation: "Formation",
-};
-
-const typeIcon: Record<string, "certificate" | "award" | "graduation-cap"> = {
-  certification: "certificate",
-  distinction: "award",
-  formation: "graduation-cap",
-};
+import DistinctionsContent from "../components/DistinctionsContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Reconnaissances professionnelles"
-  description="Certifications, distinctions et témoignages."
->
-  <div class="badge-row">
-    {distinctions.map((d) => (
-      <div class="badge">
-        <Icon name={typeIcon[d.data.type]} class="icon icon-lg badge-icon" />
-        <div class="badge-cat">{typeLabel[d.data.type]}</div>
-        <h4>{d.data.titre}</h4>
-        <p>{d.body}</p>
-      </div>
-    ))}
-  </div>
-
-  {temoignages.length > 0 && (
-    <>
-      <p class="subhead">Témoignages</p>
-      {temoignages.map((t) => (
-        <div class="quote-block">
-          <p class="quote">« {t.data.citation} »</p>
-          <p class="quote-src">{t.data.auteur}{t.data.fonction ? ` — ${t.data.fonction}` : ""}</p>
-        </div>
-      ))}
-    </>
-  )}
+<PageLayout title={t("distinctions.title")} description="Certifications, distinctions et témoignages." lang="fr">
+  <DistinctionsContent lang="fr" />
 </PageLayout>

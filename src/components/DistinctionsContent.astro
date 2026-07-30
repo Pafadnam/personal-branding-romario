@@ -1,0 +1,48 @@
+---
+import Icon from "./Icon.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const distinctions = await getCollection("distinctions");
+const temoignages = await getCollection("temoignages");
+
+const typeLabelKey = {
+  certification: "distinctions.certification",
+  distinction: "distinctions.distinction",
+  formation: "distinctions.formation",
+} as const;
+
+const typeIcon: Record<string, "certificate" | "award" | "graduation-cap"> = {
+  certification: "certificate",
+  distinction: "award",
+  formation: "graduation-cap",
+};
+---
+<div class="badge-row">
+  {distinctions.map((d) => (
+    <div class="badge">
+      <Icon name={typeIcon[d.data.type]} class="icon icon-lg badge-icon" />
+      <div class="badge-cat">{t(typeLabelKey[d.data.type])}</div>
+      <h4>{d.data.titre}</h4>
+      <p>{d.body}</p>
+    </div>
+  ))}
+</div>
+
+{temoignages.length > 0 && (
+  <>
+    <p class="subhead">{t("distinctions.testimonials")}</p>
+    {temoignages.map((tm) => (
+      <div class="quote-block">
+        <p class="quote">« {tm.data.citation} »</p>
+        <p class="quote-src">{tm.data.auteur}{tm.data.fonction ? ` — ${tm.data.fonction}` : ""}</p>
+      </div>
+    ))}
+  </>
+)}

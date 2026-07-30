@@ -1,61 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
-
-const experiences = (await getCollection("experiences")).sort((a, b) => a.data.ordre - b.data.ordre);
-const formations = (await getCollection("formations")).sort((a, b) => a.data.ordre - b.data.ordre);
-const documents = await getCollection("documents");
-const cvDoc = documents.find((d) => d.data.categorie === "CV") ?? documents.find((d) => d.id === "cv-pdf");
-const cvHref = cvDoc?.data.fichier ?? "/cv/cv.pdf";
-
-const competences = [
-  { titre: "Droit douanier", detail: "Maîtrise du Code des douanes et des accords régionaux (UEMOA, CEDEAO)." },
-  { titre: "Conseil juridique", detail: "Analyse de textes, rédaction d'avis et sécurisation des procédures." },
-  { titre: "Contrôle & conformité", detail: "Vérification des déclarations et lutte contre la fraude commerciale." },
-  { titre: "Relation aux usagers", detail: "Accueil, médiation et pédagogie auprès des opérateurs économiques." },
-];
+import CvContent from "../components/CvContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Chronologie professionnelle"
-  description="Parcours professionnel, formations et compétences."
->
-  <p class="subhead">Expérience</p>
-  <div class="timeline">
-    {experiences.map((exp) => (
-      <div class="tl-item">
-        <div class="tl-date">{exp.data.dateFin ? `${exp.data.dateDebut} — ${exp.data.dateFin}` : exp.data.dateDebut}</div>
-        <div class="tl-title">{exp.data.poste}</div>
-        <div class="tl-org">{exp.data.structure}{exp.data.lieu ? ` · ${exp.data.lieu}` : ""}</div>
-        <div class="tl-desc">{exp.body}</div>
-      </div>
-    ))}
-  </div>
-
-  <p class="subhead">Formation</p>
-  <div class="timeline">
-    {formations.map((f) => (
-      <div class="tl-item">
-        <div class="tl-date">{f.data.annee}</div>
-        <div class="tl-title">{f.data.diplome}</div>
-        {f.data.etablissement && <div class="tl-org">{f.data.etablissement}</div>}
-        <div class="tl-desc">{f.body}</div>
-      </div>
-    ))}
-  </div>
-
-  <p class="subhead">Compétences</p>
-  <div class="comp-grid">
-    {competences.map((c, i) => (
-      <div class="comp-card">
-        <div class="num">{String(i + 1).padStart(2, "0")}</div>
-        <h3>{c.titre}</h3>
-        <p>{c.detail}</p>
-      </div>
-    ))}
-  </div>
-
-  <div style="margin-top:40px;">
-    <a href={cvHref} class="btn btn-primary"><Icon name="download" />Télécharger le CV (PDF)</a>
-  </div>
+<PageLayout title={t("cv.title")} description="Parcours professionnel, formations et compétences." lang="fr">
+  <CvContent lang="fr" />
 </PageLayout>

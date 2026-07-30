@@ -1,0 +1,9 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import JournalContent from "../../components/JournalContent.astro";
+import { useTranslations } from "../../i18n/ui";
+const t = useTranslations("en");
+---
+<PageLayout title={t("journal.title")} description="Journal of missions, training and professional events." lang="en">
+  <JournalContent lang="en" />
+</PageLayout>

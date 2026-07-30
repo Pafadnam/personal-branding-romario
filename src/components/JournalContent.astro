@@ -1,0 +1,27 @@
+---
+import Icon from "./Icon.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const activites = (await getCollection("activites")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const locale = lang === "fr" ? "fr-FR" : "en-GB";
+---
+<div class="card-grid">
+  {activites.map((act) => (
+    <div class="pub-card">
+      <div class="pub-meta">
+        {act.data.date.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}{act.data.lieu ? ` · ${act.data.lieu}` : ""}
+      </div>
+      <h3>{act.data.titre}</h3>
+      <p>{act.data.description}</p>
+      <span class="pub-link">{t("journal.readMore")} <Icon name="arrow-right" class="icon icon-sm" /></span>
+    </div>
+  ))}
+</div>
+{activites.length === 0 && <p style="color:var(--text-soft);">{t("journal.empty")}</p>}

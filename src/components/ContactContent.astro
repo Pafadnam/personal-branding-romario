@@ -1,0 +1,66 @@
+---
+import Icon from "./Icon.astro";
+import profile from "../data/profile.json";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+---
+<div class="contact-grid">
+  <div>
+    <ul class="contact-list">
+      <li><span><Icon name="mail" class="icon icon-sm" />{t("contact.email")}</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+      <li><span><Icon name="linkedin" class="icon icon-sm" />{t("contact.linkedin")}</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
+      {profile.telephones.map((tel, i) => {
+        const isWhatsapp = i < 2;
+        const digits = tel.replace(/\s/g, "");
+        return (
+          <li>
+            <span>
+              <Icon name={isWhatsapp ? "whatsapp" : "phone"} class="icon icon-sm" />
+              {t("contact.phone")} {i + 1}{isWhatsapp ? ` ${t("contact.whatsapp")}` : ""}
+            </span>
+            <a href={isWhatsapp ? `https://wa.me/226${digits}` : `tel:+226${digits}`} target={isWhatsapp ? "_blank" : undefined} rel={isWhatsapp ? "noopener" : undefined}>
+              {tel}
+            </a>
+          </li>
+        );
+      })}
+      <li><span><Icon name="map-pin" class="icon icon-sm" />{t("contact.address")}</span><span>{profile.adresse}</span></li>
+    </ul>
+  </div>
+  <form class="form-box" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="contact" />
+    <p style="position:absolute;left:-9999px;">
+      <label>Ne pas remplir : <input name="bot-field" /></label>
+    </p>
+    <label for="nom">{t("contact.formName")}</label>
+    <input type="text" id="nom" name="name" placeholder={t("contact.formNamePlaceholder")} required />
+    <label for="email">{t("contact.formEmail")}</label>
+    <input type="email" id="email" name="email" placeholder={t("contact.formEmailPlaceholder")} required />
+    <label for="message">{t("contact.formMessage")}</label>
+    <textarea id="message" name="message" placeholder={t("contact.formMessagePlaceholder")} required></textarea>
+    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+      <Icon name="send" />{t("contact.send")}
+    </button>
+  </form>
+</div>
+
+<div class="faq-list">
+  <p class="subhead">{t("contact.faq")}</p>
+  <details class="faq-item">
+    <summary>{t("contact.faq1.q")}</summary>
+    <p>{t("contact.faq1.a")}</p>
+  </details>
+  <details class="faq-item">
+    <summary>{t("contact.faq2.q")}</summary>
+    <p>{t("contact.faq2.a")}</p>
+  </details>
+  <details class="faq-item">
+    <summary>{t("contact.faq3.q")}</summary>
+    <p>{t("contact.faq3.a")}</p>
+  </details>
+</div>

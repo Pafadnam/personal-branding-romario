@@ -1,72 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
-import CarteIdentite from "../components/CarteIdentite.astro";
-import Icon from "../components/Icon.astro";
-import profile from "../data/profile.json";
+import HomeContent from "../components/HomeContent.astro";
 ---
-<BaseLayout>
-  <Navigation />
-
-  <header class="hero">
-    <div class="hero-content">
-      <div class="portrait-crossfade" role="img" aria-label={`Photo de ${profile.nom}, ${profile.profession}`}>
-        <img class="portrait-img is-active" src="/images/portrait-uniforme.jpg" alt="" />
-        <img class="portrait-img" src="/images/portrait-civil.jpg" alt="" />
-      </div>
-      <h1 class="title">Kiswend-Sida Franck <em>Romario</em></h1>
-      <p class="role-line">
-        {profile.profession} — Direction Générale des Douanes du Burkina Faso.
-        Conseiller juridique et fonctionnaire de douane au service de l'État.
-      </p>
-      <p class="slogan">« {profile.slogan} »</p>
-      <div class="hero-cta">
-        <a href="/contact" class="btn btn-primary"><Icon name="send" />Prendre contact</a>
-        <a href="/cv" class="btn btn-ghost">Voir le CV<Icon name="arrow-right" /></a>
-      </div>
-    </div>
-  </header>
-
-  <script>
-    const imgs = document.querySelectorAll<HTMLImageElement>(".portrait-img");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (imgs.length > 1 && !reduceMotion) {
-      let i = 0;
-      setInterval(() => {
-        imgs[i].classList.remove("is-active");
-        i = (i + 1) % imgs.length;
-        imgs[i].classList.add("is-active");
-      }, 4000);
-    }
-  </script>
-
-  <main class="panels">
-    <section class="panel" id="profil">
-      <div class="panel-inner profil-grid">
-        <CarteIdentite />
-        <div class="bio">
-          <h2 class="panel-title">Un service public exercé avec rigueur</h2>
-          <p>
-            Inspecteur des Douanes au sein de la Direction Générale des Douanes
-            du Burkina Faso, Franck Romario Tiendrebeogo conjugue expertise
-            juridique et exigence de terrain au service de la souveraineté
-            économique nationale.
-          </p>
-          <p>
-            Conseiller juridique de formation, il apporte à la fonction
-            douanière une lecture rigoureuse des textes et une attention
-            constante à l'application équitable de la règle de droit, dans le
-            respect des personnes, des échanges et de l'État.
-          </p>
-          <div class="tag-row">
-            {profile.expertises.map((exp) => <span class="tag">{exp}</span>)}
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    © {new Date().getFullYear()} {profile.nom} · Site professionnel
-  </footer>
+<BaseLayout lang="fr">
+  <Navigation lang="fr" />
+  <HomeContent lang="fr" />
 </BaseLayout>

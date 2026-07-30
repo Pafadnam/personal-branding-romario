@@ -1,0 +1,62 @@
+---
+import CarteIdentite from "./CarteIdentite.astro";
+import Icon from "./Icon.astro";
+import profile from "../data/profile.json";
+import { useTranslations, expertises, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+const contactHref = lang === "fr" ? "/contact" : "/en/contact";
+const cvHref = lang === "fr" ? "/cv" : "/en/cv";
+---
+<header class="hero">
+  <div class="hero-content">
+    <div class="portrait-crossfade" role="img" aria-label={`Photo de ${profile.nom}, ${profile.profession}`}>
+      <img class="portrait-img is-active" src="/images/portrait-uniforme.jpg" alt="" />
+      <img class="portrait-img" src="/images/portrait-civil.jpg" alt="" />
+    </div>
+    <h1 class="title">{t("hero.title")}</h1>
+    <p class="role-line">{t("hero.role")}</p>
+    <p class="slogan">« {t("hero.slogan")} »</p>
+    <div class="hero-cta">
+      <a href={contactHref} class="btn btn-primary"><Icon name="send" />{t("hero.ctaContact")}</a>
+      <a href={cvHref} class="btn btn-ghost">{t("hero.ctaCv")}<Icon name="arrow-right" /></a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const imgs = document.querySelectorAll<HTMLImageElement>(".portrait-img");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (imgs.length > 1 && !reduceMotion) {
+    let i = 0;
+    setInterval(() => {
+      imgs[i].classList.remove("is-active");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("is-active");
+    }, 4000);
+  }
+</script>
+
+<main class="panels">
+  <section class="panel" id="profil">
+    <div class="panel-inner profil-grid">
+      <CarteIdentite />
+      <div class="bio">
+        <h2 class="panel-title">{t("profil.title")}</h2>
+        <p>{t("profil.p1")}</p>
+        <p>{t("profil.p2")}</p>
+        <div class="tag-row">
+          {expertises[lang].map((exp) => <span class="tag">{exp}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  © {new Date().getFullYear()} {profile.nom} · {t("footer.text")}
+</footer>

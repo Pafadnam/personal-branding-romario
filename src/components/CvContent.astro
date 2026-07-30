@@ -1,0 +1,70 @@
+---
+import Icon from "./Icon.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const experiences = (await getCollection("experiences")).sort((a, b) => a.data.ordre - b.data.ordre);
+const formations = (await getCollection("formations")).sort((a, b) => a.data.ordre - b.data.ordre);
+const documents = await getCollection("documents");
+const cvDoc = documents.find((d) => d.data.categorie === "CV") ?? documents.find((d) => d.id === "cv-pdf");
+const cvHref = cvDoc?.data.fichier ?? "/cv/cv.pdf";
+
+const competences = {
+  fr: [
+    { titre: "Droit douanier", detail: "Maîtrise du Code des douanes et des accords régionaux (UEMOA, CEDEAO)." },
+    { titre: "Conseil juridique", detail: "Analyse de textes, rédaction d'avis et sécurisation des procédures." },
+    { titre: "Contrôle & conformité", detail: "Vérification des déclarations et lutte contre la fraude commerciale." },
+    { titre: "Relation aux usagers", detail: "Accueil, médiation et pédagogie auprès des opérateurs économiques." },
+  ],
+  en: [
+    { titre: "Customs Law", detail: "Command of the Customs Code and regional agreements (UEMOA, ECOWAS)." },
+    { titre: "Legal Advisory", detail: "Legal analysis, opinion drafting and procedural risk management." },
+    { titre: "Control & Compliance", detail: "Declaration verification and commercial fraud prevention." },
+    { titre: "Stakeholder Relations", detail: "Guidance and support for economic operators." },
+  ],
+}[lang];
+---
+<p class="subhead">{t("cv.experience")}</p>
+<div class="timeline">
+  {experiences.map((exp) => (
+    <div class="tl-item">
+      <div class="tl-date">{exp.data.dateFin ? `${exp.data.dateDebut} — ${exp.data.dateFin}` : exp.data.dateDebut}</div>
+      <div class="tl-title">{exp.data.poste}</div>
+      <div class="tl-org">{exp.data.structure}{exp.data.lieu ? ` · ${exp.data.lieu}` : ""}</div>
+      <div class="tl-desc">{exp.body}</div>
+    </div>
+  ))}
+</div>
+
+<p class="subhead">{t("cv.formation")}</p>
+<div class="timeline">
+  {formations.map((f) => (
+    <div class="tl-item">
+      <div class="tl-date">{f.data.annee}</div>
+      <div class="tl-title">{f.data.diplome}</div>
+      {f.data.etablissement && <div class="tl-org">{f.data.etablissement}</div>}
+      <div class="tl-desc">{f.body}</div>
+    </div>
+  ))}
+</div>
+
+<p class="subhead">{t("cv.competences")}</p>
+<div class="comp-grid">
+  {competences.map((c, i) => (
+    <div class="comp-card">
+      <div class="num">{String(i + 1).padStart(2, "0")}</div>
+      <h3>{c.titre}</h3>
+      <p>{c.detail}</p>
+    </div>
+  ))}
+</div>
+
+<div style="margin-top:40px;">
+  <a href={cvHref} class="btn btn-primary"><Icon name="download" />{t("cv.download")}</a>
+</div>

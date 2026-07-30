@@ -1,19 +1,26 @@
 ---
 import "../styles/global.css";
 import profile from "../data/profile.json";
+import type { Lang } from "../i18n/ui";
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
   title = `${profile.nom} — ${profile.profession}`,
   description = `${profile.slogan} — Site professionnel de ${profile.nom}, ${profile.profession} du Burkina Faso.`,
+  lang = "fr",
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const frPath = pathname.replace(/^\/en/, "") || "/";
+const enPath = `/en${pathname.replace(/^\/en/, "") === "/" ? "" : pathname.replace(/^\/en/, "")}`;
 ---
 <!doctype html>
-<html lang="fr">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -24,6 +31,9 @@ const {
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <link rel="alternate" hreflang="fr" href={frPath} />
+    <link rel="alternate" hreflang="en" href={enPath} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

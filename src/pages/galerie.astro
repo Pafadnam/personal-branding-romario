@@ -1,23 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
-
-const items = await getCollection("galerie");
+import GalerieContent from "../components/GalerieContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Photos & moments professionnels"
-  description="Photos et vidéos des activités professionnelles."
->
-  <div class="gallery-grid">
-    {items.map((item) => (
-      <div class="gallery-item">
-        <div class="ph-wrap">
-          <Icon name={item.data.type === "video" ? "video" : "image"} class="icon icon-lg" />
-          <span class="ph" set:html={item.data.titre.replace(" — ", "<br />— ")} />
-        </div>
-      </div>
-    ))}
-  </div>
-  {items.length === 0 && <p style="color:var(--text-soft);">Aucun média pour le moment.</p>}
+<PageLayout title={t("galerie.title")} description="Photos et vidéos des activités professionnelles." lang="fr">
+  <GalerieContent lang="fr" />
 </PageLayout>

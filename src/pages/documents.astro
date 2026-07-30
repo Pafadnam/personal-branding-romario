@@ -1,28 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
-
-const docs = await getCollection("documents");
-const typeIcon: Record<string, string> = { pdf: "PDF", word: "DOC", excel: "XLS", zip: "ZIP" };
+import DocumentsContent from "../components/DocumentsContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Bibliothèque de documents"
-  description="Documents téléchargeables."
->
-  <ul class="doc-list">
-    {docs.map((doc) => (
-      <li>
-        <div style="display:flex;align-items:center;gap:16px;">
-          <span class="doc-icon">{typeIcon[doc.data.type]}</span>
-          <div>
-            <p class="doc-title">{doc.data.titre}</p>
-            {doc.data.categorie && <p class="doc-cat">{doc.data.categorie}</p>}
-          </div>
-        </div>
-        <a href={doc.data.fichier} class="doc-dl"><Icon name="download" class="icon icon-sm" />Télécharger</a>
-      </li>
-    ))}
-  </ul>
-  {docs.length === 0 && <p style="color:var(--text-soft);">Aucun document pour le moment.</p>}
+<PageLayout title={t("documents.title")} description="Documents téléchargeables." lang="fr">
+  <DocumentsContent lang="fr" />
 </PageLayout>

@@ -1,0 +1,38 @@
+---
+import Icon from "./Icon.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const items = (await getCollection("galerie")).sort((a, b) => {
+  const da = a.data.date?.valueOf() ?? 0;
+  const db = b.data.date?.valueOf() ?? 0;
+  return db - da;
+});
+---
+{items.length > 0 ? (
+  <div class="gallery-grid">
+    {items.map((item) => {
+      const isPlaceholder = item.data.url.includes("placeholder-");
+      return (
+        <div class="gallery-item">
+          {isPlaceholder ? (
+            <div class="ph-wrap">
+              <Icon name={item.data.type === "video" ? "video" : "image"} class="icon icon-lg" />
+              <span class="ph" set:html={item.data.titre.replace(" — ", "<br />— ")} />
+            </div>
+          ) : (
+            <img src={item.data.url} alt={item.data.titre} loading="lazy" />
+          )}
+        </div>
+      );
+    })}
+  </div>
+) : (
+  <p style="color:var(--text-soft);">{t("galerie.empty")}</p>
+)}

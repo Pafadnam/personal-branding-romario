@@ -2,16 +2,19 @@
 import BaseLayout from "./BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import profile from "../data/profile.json";
+import { useTranslations, type Lang } from "../i18n/ui";
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
-const { title, description } = Astro.props;
+const { title, description, lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
 ---
-<BaseLayout title={`${title} — ${profile.nom}`} description={description}>
-  <Navigation />
+<BaseLayout title={`${title} — ${profile.nom}`} description={description} lang={lang}>
+  <Navigation lang={lang} />
 
   <main class="panels">
     <section class="panel">
@@ -23,6 +26,6 @@ const { title, description } = Astro.props;
   </main>
 
   <footer class="site-footer">
-    © {new Date().getFullYear()} {profile.nom} · <a href="/documents">Documents</a>
+    © {new Date().getFullYear()} {profile.nom} · <a href={lang === "fr" ? "/documents" : "/en/documents"}>{t("footer.documents")}</a>
   </footer>
 </BaseLayout>

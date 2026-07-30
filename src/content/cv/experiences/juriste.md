@@ -1,5 +1,5 @@
 ---
-poste: "Conseiller Juridique"
+poste: "Juriste"
 structure: "Formation juridique appliquée au droit public et à la matière douanière"
 dateDebut: "Formation"
 ordre: 2

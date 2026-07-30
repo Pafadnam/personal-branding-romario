@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+import HomeContent from "../../components/HomeContent.astro";
+import profile from "../../data/profile.json";
+---
+<BaseLayout
+  lang="en"
+  title={`${profile.nom} — ${profile.profession}`}
+  description="Customs Inspector at the Directorate-General of Customs of Burkina Faso — professional profile of Franck Romario TIENDREBEOGO."
+>
+  <Navigation lang="en" />
+  <HomeContent lang="en" />
+</BaseLayout>

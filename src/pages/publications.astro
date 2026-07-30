@@ -1,33 +1,9 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
-
-const publications = (await getCollection("publications")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const categorieLabel: Record<string, string> = {
-  article: "Article",
-  communique: "Communiqué",
-  actualite: "Actualité",
-  note: "Note",
-  rapport: "Rapport",
-};
+import PublicationsContent from "../components/PublicationsContent.astro";
+import { useTranslations } from "../i18n/ui";
+const t = useTranslations("fr");
 ---
-<PageLayout
-  title="Articles, communiqués & rapports"
-  description="Articles, communiqués, actualités, notes et rapports."
->
-  <div class="card-grid">
-    {publications.map((pub) => (
-      <div class="pub-card">
-        <div class="pub-meta">
-          {categorieLabel[pub.data.categorie]} · {pub.data.date.toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
-        </div>
-        <h3>{pub.data.titre}</h3>
-        <p>{pub.data.resume}</p>
-        <span class="pub-link">Lire la publication <Icon name="arrow-right" class="icon icon-sm" /></span>
-      </div>
-    ))}
-  </div>
-  {publications.length === 0 && <p style="color:var(--text-soft);">Aucune publication pour le moment.</p>}
+<PageLayout title={t("publications.title")} description="Articles, communiqués, actualités, notes et rapports." lang="fr">
+  <PublicationsContent lang="fr" />
 </PageLayout>
