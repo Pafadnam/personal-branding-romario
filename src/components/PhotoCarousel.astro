@@ -60,7 +60,7 @@ const { slides } = Astro.props;
   function startAutoplay() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion || slides.length < 2) return;
-    timer = setInterval(() => goTo(current + 1), 4500);
+    timer = setInterval(() => goTo(current + 1), 2000);
   }
   function stopAutoplay() {
     if (timer) clearInterval(timer);
