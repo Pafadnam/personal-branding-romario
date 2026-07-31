@@ -1,0 +1,23 @@
+---
+import Icon from "./Icon.astro";
+import profile from "../data/profile.json";
+import { useTranslations, type Lang } from "../i18n/ui";
+
+interface Props {
+  lang?: Lang;
+}
+const { lang = "fr" } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { name: "linkedin" as const, href: profile.linkedin, label: t("contact.linkedin") },
+  { name: "facebook" as const, href: profile.facebook, label: t("contact.facebook") },
+];
+---
+<aside class="social-rail" aria-label={t("contact.social")}>
+  {links.map((l) => (
+    <a href={l.href} target="_blank" rel="noopener" class="social-rail-link" aria-label={l.label} title={l.label}>
+      <Icon name={l.name} class="icon" />
+    </a>
+  ))}
+</aside>

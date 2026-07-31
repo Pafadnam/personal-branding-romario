@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import profile from "../data/profile.json";
+import SocialRail from "../components/SocialRail.astro";
 import type { Lang } from "../i18n/ui";
 
 interface Props {
@@ -48,5 +49,6 @@ const enPath = `/en${pathname.replace(/^\/en/, "") === "/" ? "" : pathname.repla
   </head>
   <body>
     <slot />
+    <SocialRail lang={lang} />
   </body>
 </html>

@@ -295,6 +295,22 @@ h2.panel-title{
 .social-icon:hover{background:var(--brass);color:var(--parchment);transform:translateY(-2px);}
 .social-icon .icon{width:19px;height:19px;}
 
+/* ---------- Bande sociale verticale fixe (référence : icônes empilées à droite) ---------- */
+.social-rail{
+  position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:50;
+  display:flex;flex-direction:column;align-items:center;gap:18px;
+}
+.social-rail-link{color:var(--ink);opacity:.55;transition:opacity .2s,color .2s,transform .2s;}
+.social-rail-link:hover{color:var(--brass);opacity:1;transform:scale(1.12);}
+.social-rail-link .icon{width:18px;height:18px;stroke-width:1.8;}
+
+@media (max-width:760px){
+  .social-rail{display:none;}
+}
+@media (min-width:761px){
+  .social-label,.social-row{display:none;}
+}
+
 .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
 .gallery-item .icon-lg{color:var(--brass);opacity:.5;margin-bottom:8px;}
 .gallery-item .ph-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;}
