@@ -11,9 +11,18 @@ const t = useTranslations(lang);
 ---
 <div class="contact-grid">
   <div>
+    <p class="social-label">{t("contact.social")}</p>
+    <div class="social-row">
+      <a href={profile.linkedin} target="_blank" rel="noopener" class="social-icon" aria-label={t("contact.linkedin")} title={t("contact.linkedin")}>
+        <Icon name="linkedin" class="icon" />
+      </a>
+      <a href={profile.facebook} target="_blank" rel="noopener" class="social-icon" aria-label={t("contact.facebook")} title={t("contact.facebook")}>
+        <Icon name="facebook" class="icon" />
+      </a>
+    </div>
+
     <ul class="contact-list">
       <li><span><Icon name="mail" class="icon icon-sm" />{t("contact.email")}</span><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-      <li><span><Icon name="linkedin" class="icon icon-sm" />{t("contact.linkedin")}</span><a href={profile.linkedin} target="_blank" rel="noopener">{profile.linkedin.replace("https://", "")}</a></li>
       {profile.telephones.map((tel, i) => {
         const isWhatsapp = i < 2;
         const digits = tel.replace(/\s/g, "");
