@@ -13,18 +13,7 @@ const t = useTranslations(lang);
 const contactHref = lang === "fr" ? "/contact" : "/en/contact";
 const cvHref = lang === "fr" ? "/cv" : "/en/cv";
 
-const heroSlides =
-  lang === "fr"
-    ? [
-        { src: "/images/portrait-uniforme.jpg", alt: "Portrait officiel en uniforme" },
-        { src: "/images/soutenance-1.jpg", alt: "Soutenance de Master en Droit — 21 juillet 2026" },
-        { src: "/images/soutenance-2.jpg", alt: "Remise du diplôme — Master en Droit" },
-      ]
-    : [
-        { src: "/images/portrait-uniforme.jpg", alt: "Official portrait in uniform" },
-        { src: "/images/soutenance-1.jpg", alt: "Master's Degree in Law defence — 21 July 2026" },
-        { src: "/images/soutenance-2.jpg", alt: "Diploma ceremony — Master's Degree in Law" },
-      ];
+const heroSlides = profile.carrousel.map((item) => ({ src: item.url, alt: item.legende }));
 ---
 <header class="hero">
   <div class="hero-content">

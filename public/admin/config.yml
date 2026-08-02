@@ -41,6 +41,14 @@ collections:
             name: "expertises"
             widget: "list"
             field: { label: "Domaine", name: "domaine", widget: "string" }
+          - { label: "Photo de la carte professionnelle", name: "photoCarteIdentite", widget: "image" }
+          - label: "Photos du carrousel (page d'accueil)"
+            name: "carrousel"
+            widget: "list"
+            summary: "{{legende}}"
+            fields:
+              - { label: "Photo", name: "url", widget: "image" }
+              - { label: "Légende", name: "legende", widget: "string" }
           - label: "Sections de navigation"
             name: "sections"
             widget: "list"

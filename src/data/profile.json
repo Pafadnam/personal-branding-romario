@@ -13,6 +13,12 @@
   "linkedin": "https://linkedin.com/in/franck-romario",
   "facebook": "https://www.facebook.com/share/1Bha1LFUJW/",
   "expertises": ["Droit douanier", "Contrôle & conformité", "Facilitation des échanges", "Conseil juridique", "Service public"],
+  "photoCarteIdentite": "/images/portrait-uniforme.jpg",
+  "carrousel": [
+    { "url": "/images/portrait-uniforme.jpg", "legende": "Portrait officiel en uniforme" },
+    { "url": "/images/photo-au-service.jpg", "legende": "Photo au service" },
+    { "url": "/images/soutenance-2.jpg", "legende": "Remise du diplôme — Master en Droit" }
+  ],
   "sections": [
     { "id": "profil", "label": "Profil", "num": "01", "href": "/#profil" },
     { "id": "cv", "label": "Parcours", "num": "02", "href": "/cv" },
