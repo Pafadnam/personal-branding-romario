@@ -8,8 +8,8 @@ public_folder: "/images"
 
 locale: "fr"
 
-site_url: https://franck-romario.netlify.app
-display_url: https://franck-romario.netlify.app
+site_url: https://personal-branding-romario.netlify.app
+display_url: https://personal-branding-romario.netlify.app
 logo_url: /favicon.svg
 
 collections:
