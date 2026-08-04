@@ -39,6 +39,8 @@ collections:
           - { label: "Email", name: "email", widget: "string" }
           - { label: "LinkedIn", name: "linkedin", widget: "string" }
           - { label: "Facebook", name: "facebook", widget: "string" }
+          - { label: "Instagram", name: "instagram", widget: "string" }
+          - { label: "X (Twitter)", name: "twitter", widget: "string" }
           - label: "Domaines d'expertise"
             name: "expertises"
             widget: "list"
