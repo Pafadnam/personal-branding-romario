@@ -18,9 +18,9 @@ const heroSlides = profile.carrousel.map((item) => ({ src: item.url, alt: item.l
 <header class="hero">
   <div class="hero-content">
     <PhotoCarousel slides={heroSlides} />
-    <h1 class="title">{t("hero.title")}</h1>
-    <p class="role-line">{t("hero.role")}</p>
-    <p class="slogan">« {t("hero.slogan")} »</p>
+    <h1 class="title">{profile.nomAffichage}</h1>
+    <p class="role-line">{lang === "fr" ? profile.titreProfessionnel : t("hero.role")}</p>
+    <p class="slogan">« {lang === "fr" ? profile.slogan : t("hero.slogan")} »</p>
     <div class="hero-cta">
       <a href={contactHref} class="btn btn-primary"><Icon name="send" />{t("hero.ctaContact")}</a>
       <a href={cvHref} class="btn btn-ghost">{t("hero.ctaCv")}<Icon name="arrow-right" /></a>

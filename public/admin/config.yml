@@ -21,8 +21,10 @@ collections:
         label: "Informations personnelles"
         file: "src/data/profile.json"
         fields:
-          - { label: "Nom complet", name: "nom", widget: "string" }
-          - { label: "Profession", name: "profession", widget: "string" }
+          - { label: "Nom complet (administratif)", name: "nom", widget: "string" }
+          - { label: "Nom affiché en page d'accueil et sur la carte", name: "nomAffichage", widget: "string" }
+          - { label: "Profession (courte, utilisée sur la carte)", name: "profession", widget: "string" }
+          - { label: "Titre professionnel complet (page d'accueil)", name: "titreProfessionnel", widget: "text" }
           - { label: "Sous-titre", name: "sousTitre", widget: "string" }
           - { label: "Slogan", name: "slogan", widget: "string" }
           - { label: "Nationalité", name: "nationalite", widget: "string" }

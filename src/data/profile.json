@@ -3,6 +3,8 @@
   "profession": "Inspecteur des Douanes",
   "sousTitre": "Conseiller Juridique",
   "slogan": "Intégrité, Discipline et Service à la Nation",
+  "nomAffichage": "Kiswend-Sida Franck Romario TIENDREBEOGO",
+  "titreProfessionnel": "Inspecteur des Douanes | Juriste fiscaliste | Junior Project Manager | Spécialisé en contentieux douaniers & commerce international | Consultant-Formateur | Entrepreneur | Leadership",
   "nationalite": "Burkinabè",
   "residence": "Ouagadougou 01",
   "statut": "Fonctionnaire",
@@ -15,8 +17,8 @@
   "expertises": ["Droit douanier", "Contrôle & conformité", "Facilitation des échanges", "Conseil juridique", "Service public"],
   "photoCarteIdentite": "/images/portrait-uniforme.jpg",
   "carrousel": [
-    { "url": "/images/portrait-uniforme.jpg", "legende": "Portrait officiel en uniforme" },
     { "url": "/images/photo-au-service.jpg", "legende": "Photo au service" },
+    { "url": "/images/portrait-uniforme.jpg", "legende": "Portrait officiel en uniforme" },
     { "url": "/images/soutenance-2.jpg", "legende": "Remise du diplôme — Master en Droit" }
   ],
   "sections": [

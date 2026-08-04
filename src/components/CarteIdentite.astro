@@ -6,7 +6,7 @@ import profile from "../data/profile.json";
   <div class="id-photo">
     <img src={profile.photoCarteIdentite} alt={`Photo de ${profile.nom}`} />
   </div>
-  <div class="id-name">Kiswend-Sida Franck Romario TIENDREBEOGO</div>
+  <div class="id-name">{profile.nomAffichage}</div>
   <div class="id-role">{profile.profession}</div>
   <div class="id-row"><span>Nationalité</span><span>{profile.nationalite}</span></div>
   <div class="id-row"><span>Résidence</span><span>{profile.residence}</span></div>

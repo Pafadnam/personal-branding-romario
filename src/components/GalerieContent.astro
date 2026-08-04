@@ -14,22 +14,39 @@ const items = (await getCollection("galerie")).sort((a, b) => {
   const db = b.data.date?.valueOf() ?? 0;
   return db - da;
 });
+const locale = lang === "fr" ? "fr-FR" : "en-GB";
 ---
 {items.length > 0 ? (
   <div class="gallery-grid">
     {items.map((item) => {
       const isPlaceholder = item.data.url.includes("placeholder-");
+      const [line1, line2] = item.data.titre.split(" — ");
       return (
-        <div class="gallery-item">
-          {isPlaceholder ? (
-            <div class="ph-wrap">
-              <Icon name={item.data.type === "video" ? "video" : "image"} class="icon icon-lg" />
-              <span class="ph" set:html={item.data.titre.replace(" — ", "<br />— ")} />
-            </div>
-          ) : (
-            <img src={item.data.url} alt={item.data.titre} loading="lazy" />
-          )}
-        </div>
+        <figure class="gallery-item">
+          <div class="gallery-photo">
+            {isPlaceholder ? (
+              <div class="ph-wrap">
+                <Icon name={item.data.type === "video" ? "video" : "image"} class="icon icon-lg" />
+                <span class="ph">
+                  {line1}
+                  {line2 && <><br />— {line2}</>}
+                </span>
+              </div>
+            ) : (
+              <img src={item.data.url} alt={item.data.titre} loading="lazy" />
+            )}
+          </div>
+          <figcaption class="gallery-caption">
+            <span class="gallery-caption-title">{item.data.titre}</span>
+            {(item.data.album || item.data.date) && (
+              <span class="gallery-caption-meta">
+                {item.data.album}
+                {item.data.album && item.data.date && " · "}
+                {item.data.date && item.data.date.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })}
+              </span>
+            )}
+          </figcaption>
+        </figure>
       );
     })}
   </div>
